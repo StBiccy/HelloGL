@@ -21,6 +21,16 @@ struct Camera
 	Vector3 up;
 };
 
+struct Colour
+{
+	GLfloat r, g, b;
+};
+
+struct Vertex
+{
+	GLfloat x, y, z;
+};
+
 class HelloGL
 {
 private:
@@ -31,13 +41,26 @@ private:
 	float cameraCenterZ;
 	float cameraCenterX;
 
+	static Vertex vertices[];
+	static Colour colours[];
+
+	static Vertex indexedVertices[];
+	static Colour indexedColours[];
+	static GLushort indices[];
+
 public:
 	HelloGL(int argc, char* argv[]);
 	~HelloGL(void);
 	void Display();
 	void DrawPolygon();
 	void DrawTriangle();
+
 	void DrawCube();
+	void DrawCubeArray();
+	void DrawIndexedCube();
+
+	void DrawIndexedCubeAlt();
+
 	void Update();
 
 	void Keyboard(unsigned char key, int x, int y);
