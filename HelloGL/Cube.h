@@ -4,13 +4,17 @@
 #include <gl/GlU.h>
 #include "GL\freeglut.h"
 #include "Structures.h"
+#include <fstream>
+#include <iostream>
 
 class Cube
 {
 private:
-	static Vertex indexedVertices[];
-	static Colour indexedColours[];
-	static GLushort indices[];
+	static Vertex* indexedVertices;
+	static Colour* indexedColours;
+	static GLushort* indices;
+
+	static int numVertices, numColours, numIndicies;
 
 	Vector3 postition;
 
@@ -20,6 +24,9 @@ private:
 public:
 	Cube(GLfloat x, GLfloat y, GLfloat z);
 	~Cube();
+
+	static bool Load(char* path);
+
 
 	void Update();
 	void Draw();
