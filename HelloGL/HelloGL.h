@@ -16,7 +16,7 @@ private:
 	float rotation;
 	Camera* camera;
 
-	Cube* cube;
+	Cube* cube[200];
 
 	static Vertex vertices[];
 	static Colour colours[];

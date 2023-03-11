@@ -17,10 +17,15 @@ GLushort Cube::indices[] = { 0, 1, 2,  2, 3, 0,      // front
 				7, 4, 3,  3, 2, 7,      // bottom
 				4, 7, 6,  6, 5, 4 };    // back
 
-Cube::Cube()
-{
-	rotation = 0.0f;
 
+
+Cube::Cube(GLfloat x, GLfloat y, GLfloat z)
+{
+	postition.x = x;
+	postition.y = y;
+	postition.z = z;
+
+	rotation = 0.0f;
 }
 
 Cube::~Cube()
@@ -30,6 +35,8 @@ Cube::~Cube()
 
 void Cube::Draw()
 {
+	glTranslatef(postition.x, postition.y, postition.z);
+
 	glRotatef(rotation, 1.0f, 0.0f, 0.0f);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -47,5 +54,5 @@ void Cube::Draw()
 
 void Cube::Update()
 {
-	rotation += 0.5f;
+	rotation += 0.1f;
 }
