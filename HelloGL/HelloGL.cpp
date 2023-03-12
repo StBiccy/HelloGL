@@ -26,11 +26,11 @@ HelloGL::HelloGL(int argc, char* argv[])
 	glutDisplayFunc(GLUTCallbacks::Display);
 	glutTimerFunc(REFRESHRATE, GLUTCallbacks::Timer, REFRESHRATE);
 	glutKeyboardFunc(GLUTCallbacks::Keyboard);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glViewport(0, 0, 800, 800);
-	gluPerspective(45, 1, 0, 1000);
-	glMatrixMode(GL_MODELVIEW);
+	glMatrixMode(GL_PROJECTION);// switch to the GL_PROJECTION matrix mode for the following methods
+	glLoadIdentity();// replaces current matix with identity matrix
+	glViewport(0, 0, 800, 800);// set viewport to be entire window
+	gluPerspective(45, 1, 0, 1000); // sets the correct perspective 
+	glMatrixMode(GL_MODELVIEW);// switches back to the GL_MODELVIEW matrix so we can load our models
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glutMainLoop();
@@ -38,28 +38,23 @@ HelloGL::HelloGL(int argc, char* argv[])
 
 void HelloGL::Update()
 {
-	glLoadIdentity();
+	glLoadIdentity(); //resets the ideity matrix at the start of every frame
+	gluLookAt(camera->eye.x, camera->eye.y, camera->eye.z, camera->center.x, camera->center.y, camera->center.z, camera->up.x, camera->up.y, camera->up.z); //refreshes what the camera is looking at
 
+	// updates the cubes every frame
 	for (int i = 0; i < 200; i++)
 	{
 		cube[i]->Update();
 	}
-	
-	gluLookAt(camera->eye.x, camera->eye.y, camera->eye.z, camera->center.x, camera->center.y, camera->center.z, camera->up.x, camera->up.y, camera->up.z);
 
 	glutPostRedisplay();
 
-	rotation += 0.5f;
-	if (rotation >= 360)
-	{
-		rotation = 0.0f;
-	}
+
 }
 
 void HelloGL::Display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	
 	for (int i = 0; i < 200; i++)
 	{

@@ -13,7 +13,7 @@
 class HelloGL
 {
 private:
-	float rotation;
+
 	Camera* camera;
 
 	Cube* cube[200];
@@ -22,8 +22,6 @@ public:
 	HelloGL(int argc, char* argv[]);
 	~HelloGL(void);
 	void Display();
-
-	void DrawTriangle();
 
 
 	void Update();

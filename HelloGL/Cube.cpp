@@ -73,7 +73,7 @@ void Cube::Draw()
 	{
 		glTranslatef(postition.x, postition.y, postition.z);
 
-		//glRotatef(rotation, 1.0f, 0.0f, 0.0f);
+		glRotatef(rotation, 1.0f, 0.0f, 0.0f);
 
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glEnableClientState(GL_COLOR_ARRAY);
