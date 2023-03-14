@@ -4,7 +4,7 @@ HelloGL::HelloGL(int argc, char* argv[])
 {
 	camera = new Camera();
 	
-	camera->eye.x = 0.0f; camera->eye.y = 0.0f; camera->eye.z = 1.0f;
+	camera->eye.x = 5.0f; camera->eye.y = 5.0f; camera->eye.z = -100.0f;
 	camera->center.x = 0.0f; camera->center.y = 0.0f; camera->center.z = 0.0f;
 	camera->up.x = 0.0f; camera->up.y = 1.0f; camera->up.z = 0.0f;
 
@@ -19,7 +19,6 @@ HelloGL::HelloGL(int argc, char* argv[])
 	GLUTCallbacks::Init(this);
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH);
-	glEnable(GL_DEPTH_TEST);
 	glutInitWindowSize(800, 800);
 	glutInitWindowPosition(0, 100);
 	glutCreateWindow("Simple OpenGL Program");
@@ -29,10 +28,11 @@ HelloGL::HelloGL(int argc, char* argv[])
 	glMatrixMode(GL_PROJECTION);// switch to the GL_PROJECTION matrix mode for the following methods
 	glLoadIdentity();// replaces current matix with identity matrix
 	glViewport(0, 0, 800, 800);// set viewport to be entire window
-	gluPerspective(45, 1, 0, 1000); // sets the correct perspective 
+	gluPerspective(45, 1, 0.1, 1000); // sets the correct perspective 
 	glMatrixMode(GL_MODELVIEW);// switches back to the GL_MODELVIEW matrix so we can load our models
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
+	glEnable(GL_DEPTH_TEST);
 	glutMainLoop();
 }
 

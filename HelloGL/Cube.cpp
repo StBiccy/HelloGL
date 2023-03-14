@@ -71,9 +71,6 @@ void Cube::Draw()
 {
 	if (indexedVertices != nullptr && indexedColours != nullptr && indices !=nullptr)
 	{
-		glTranslatef(postition.x, postition.y, postition.z);
-
-		glRotatef(rotation, 1.0f, 0.0f, 0.0f);
 
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glEnableClientState(GL_COLOR_ARRAY);
@@ -81,7 +78,9 @@ void Cube::Draw()
 		glColorPointer(3, GL_FLOAT, 0, indexedColours);
 
 		glPushMatrix();
-		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, indices);
+			glTranslatef(postition.x, postition.y, postition.z);
+			glRotatef(rotation, postition.x, postition.y, postition.z);
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, indices);
 		glPopMatrix();
 
 		glDisableClientState(GL_COLOR_ARRAY);
