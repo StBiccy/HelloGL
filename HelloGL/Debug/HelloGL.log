@@ -1,5 +1,4 @@
-﻿  GLUTCallbacks.cpp
-  HelloGL.cpp
-  main.cpp
+﻿  HelloGL.cpp
+  Texture2D.cpp
   Generating Code...
   HelloGL.vcxproj -> C:\Users\Bobbic\Documents\Rapid games prototyping\Platformer\HelloGL\Debug\HelloGL.exe

@@ -4,6 +4,7 @@
 #include "Cube.h"
 #include "Pyramid.h"
 #include "Structures.h"
+#include "MeshLoader.h"
 
 #define REFRESHRATE 16
 

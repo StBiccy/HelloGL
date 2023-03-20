@@ -18,7 +18,7 @@ private:
 
 
 public:
-	Cube(Mesh* mesh, GLfloat x, GLfloat y, GLfloat z);
+	Cube(Mesh* mesh, Texture2D* texture, GLfloat x, GLfloat y, GLfloat z);
 	~Cube();
 
 	void Update();

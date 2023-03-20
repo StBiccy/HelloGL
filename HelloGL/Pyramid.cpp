@@ -1,6 +1,6 @@
 #include "Pyramid.h"
 
-Pyramid::Pyramid(Mesh* mesh, GLfloat x, GLfloat y, GLfloat z) : SceneObjects(mesh)
+Pyramid::Pyramid(Mesh* mesh, GLfloat x, GLfloat y, GLfloat z) : SceneObjects(mesh, nullptr)
 {
 	postition.x = x;
 	postition.y = y;

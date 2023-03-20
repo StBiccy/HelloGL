@@ -24,9 +24,11 @@ void HelloGL::InitGL(int argc, char* argv[])
 	glViewport(0, 0, 800, 800);// set viewport to be entire window
 	gluPerspective(45, 1, 0.1, 1000); // sets the correct perspective 
 	glMatrixMode(GL_MODELVIEW);// switches back to the GL_MODELVIEW matrix so we can load our models
+	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glEnable(GL_DEPTH_TEST);
+
 }
 
 void HelloGL::InitObjects()
@@ -38,13 +40,16 @@ void HelloGL::InitObjects()
 	camera->center.x = 0.0f; camera->center.y = 0.0f; camera->center.z = 0.0f;
 	camera->up.x = 0.0f; camera->up.y = 1.0f; camera->up.z = 0.0f;
 
+	Mesh* cubeMesh = MeshLoader::Load((char*)"cube.txt");
 	Mesh* pyramidMesh = MeshLoader::Load((char*)"pyramid.txt");
 
-	Mesh* cubeMesh = MeshLoader::Load((char*)"cube.txt");
+	Texture2D* texture = new Texture2D();
+
+	texture->Load((char*)"Penguins.raw", 512, 512);
 
 	for (int i = 0; i < 100; i++)
 	{
-		objects[i] = new Cube(cubeMesh,((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -(rand() % 1000) / 10.0f);
+		objects[i] = new Cube(cubeMesh, texture,((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -(rand() % 1000) / 10.0f);
 	}
 	for (int i = 100; i < 200; i++)
 	{
@@ -93,8 +98,7 @@ HelloGL::~HelloGL(void)
 
 	delete camera;
 
-	for (int i = 0; i < 200; i++)
-	{
-		delete objects[i];
-	}
+
+	//delete[] objects;
+
 }

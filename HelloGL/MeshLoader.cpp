@@ -10,6 +10,7 @@ namespace MeshLoader
 	void LoadVertices(ifstream& inFile, Mesh& mesh);
 	void LoadColours(ifstream& inFile, Mesh& mesh);
 	void LoadIndices(ifstream& inFile, Mesh& mesh);
+	void LoadUV(ifstream& inFile, Mesh& mesh);
 
 	void LoadVertices(ifstream& inFile, Mesh& mesh)
 	{
@@ -43,6 +44,22 @@ namespace MeshLoader
 				inFile >> mesh.colours[i].b;
 			}
 		}
+	}	
+	
+	void LoadUV(ifstream& inFile, Mesh& mesh)
+	{
+		inFile >> mesh.texCoordsCount;
+
+		if (mesh.texCoordsCount > 0)
+		{
+			mesh.texCoords = new TextureCoordanate[mesh.texCoordsCount];
+
+			for (int i = 0; i < mesh.texCoordsCount; i++)
+			{
+				inFile >> mesh.texCoords[i].u;
+				inFile >> mesh.texCoords[i].v;
+			}
+		}
 	}
 
 	void LoadIndices(ifstream& inFile, Mesh& mesh)
@@ -60,6 +77,7 @@ namespace MeshLoader
 		}
 	}
 
+
 	Mesh* MeshLoader::Load(char* path)
 	{
 		Mesh* mesh = new Mesh();
@@ -76,6 +94,7 @@ namespace MeshLoader
 
 		LoadVertices(inFile, *mesh);
 		LoadColours(inFile, *mesh);
+		LoadUV(inFile, *mesh);
 		LoadIndices(inFile, *mesh);
 
 		inFile.close();

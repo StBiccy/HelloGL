@@ -28,10 +28,16 @@ struct Vertex
 	GLfloat x, y, z;
 };
 
+struct TextureCoordanate
+{
+	GLfloat u, v;
+};
+
 struct Mesh
 {
 	Vertex* vertices;
 	Colour* colours;
 	GLshort* Indices;
-	int VertexCount, ColourCount, IndexCount;
+	TextureCoordanate* texCoords;
+	int VertexCount, ColourCount, texCoordsCount, IndexCount;
 };
