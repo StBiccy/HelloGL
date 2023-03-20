@@ -1,11 +1,9 @@
 #pragma once
-#include <Windows.h>
-#include <gl/GL.h>
-#include <gl/GlU.h>
-#include "GL\freeglut.h"
+
 #include "GLUTCallbacks.h"
-#include "Structures.h"
 #include "Cube.h"
+#include "Pyramid.h"
+#include "Structures.h"
 
 #define REFRESHRATE 16
 
@@ -16,7 +14,7 @@ private:
 
 	Camera* camera;
 
-	Cube* cube[200];
+	SceneObjects* objects[1000];
 
 public:
 	HelloGL(int argc, char* argv[]);

@@ -3,18 +3,14 @@
 #include <gl/GL.h>
 #include <gl/GlU.h>
 #include "GL\freeglut.h"
-#include "Structures.h"
+#include "SceneObjects.h"
+
 #include <fstream>
 #include <iostream>
 
-class Cube
+class Cube : public SceneObjects
 {
 private:
-	static Vertex* indexedVertices;
-	static Colour* indexedColours;
-	static GLushort* indices;
-
-	static int numVertices, numColours, numIndicies;
 
 	Vector3 postition;
 
@@ -22,11 +18,8 @@ private:
 
 
 public:
-	Cube(GLfloat x, GLfloat y, GLfloat z);
+	Cube(Mesh* mesh, GLfloat x, GLfloat y, GLfloat z);
 	~Cube();
-
-	static bool Load(char* path);
-
 
 	void Update();
 	void Draw();

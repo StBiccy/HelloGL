@@ -1,4 +1,21 @@
 ﻿  GLUTCallbacks.cpp
-C:\Users\a018366m\source\repos\HelloGL\HelloGL\GLUTCallbacks.cpp(19,21): error C2248: 'HelloGL::Display': cannot access private member declared in class 'HelloGL'
-C:\Users\a018366m\source\repos\HelloGL\HelloGL\HelloGL.h(12): message : see declaration of 'HelloGL::Display'
-C:\Users\a018366m\source\repos\HelloGL\HelloGL\HelloGL.h(8): message : see declaration of 'HelloGL'
+  HelloGL.cpp
+C:\Users\Bobbic\Documents\Rapid games prototyping\Platformer\HelloGL\HelloGL\HelloGL.cpp(88,13): warning C4156: deletion of an array expression without using the array form of 'delete'; array form substituted
+C:\Users\Bobbic\Documents\Rapid games prototyping\Platformer\HelloGL\HelloGL\HelloGL.cpp(88,13): warning C4154: deletion of an array expression; conversion to pointer supplied
+  main.cpp
+  Generating Code...
+GLUTCallbacks.obj : error LNK2019: unresolved external symbol __imp_glutTimerFunc referenced in function "void __cdecl GLUTCallbacks::Timer(int)" (?Timer@GLUTCallbacks@@YAXH@Z)
+HelloGL.obj : error LNK2001: unresolved external symbol __imp_glutTimerFunc
+GLUTCallbacks.obj : error LNK2019: unresolved external symbol __imp_glutGet referenced in function "void __cdecl GLUTCallbacks::Timer(int)" (?Timer@GLUTCallbacks@@YAXH@Z)
+HelloGL.obj : error LNK2019: unresolved external symbol __imp_glutInitWindowPosition referenced in function "public: void __cdecl HelloGL::InitGL(int,char * * const)" (?InitGL@HelloGL@@QEAAXHQEAPEAD@Z)
+HelloGL.obj : error LNK2019: unresolved external symbol __imp_glutInitWindowSize referenced in function "public: void __cdecl HelloGL::InitGL(int,char * * const)" (?InitGL@HelloGL@@QEAAXHQEAPEAD@Z)
+HelloGL.obj : error LNK2019: unresolved external symbol __imp_glutInitDisplayMode referenced in function "public: void __cdecl HelloGL::InitGL(int,char * * const)" (?InitGL@HelloGL@@QEAAXHQEAPEAD@Z)
+HelloGL.obj : error LNK2019: unresolved external symbol __imp_glutMainLoop referenced in function "public: __cdecl HelloGL::HelloGL(int,char * * const)" (??0HelloGL@@QEAA@HQEAPEAD@Z)
+HelloGL.obj : error LNK2019: unresolved external symbol __imp_glutPostRedisplay referenced in function "public: void __cdecl HelloGL::Update(void)" (?Update@HelloGL@@QEAAXXZ)
+HelloGL.obj : error LNK2019: unresolved external symbol __imp_glutSwapBuffers referenced in function "public: void __cdecl HelloGL::Display(void)" (?Display@HelloGL@@QEAAXXZ)
+HelloGL.obj : error LNK2019: unresolved external symbol __imp_glutKeyboardFunc referenced in function "public: void __cdecl HelloGL::InitGL(int,char * * const)" (?InitGL@HelloGL@@QEAAXHQEAPEAD@Z)
+HelloGL.obj : error LNK2019: unresolved external symbol __imp_glutDisplayFunc referenced in function "public: void __cdecl HelloGL::InitGL(int,char * * const)" (?InitGL@HelloGL@@QEAAXHQEAPEAD@Z)
+HelloGL.obj : error LNK2019: unresolved external symbol __imp___glutInitWithExit referenced in function glutInit_ATEXIT_HACK
+HelloGL.obj : error LNK2019: unresolved external symbol __imp___glutCreateWindowWithExit referenced in function glutCreateWindow_ATEXIT_HACK
+freeglut.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\Users\Bobbic\Documents\Rapid games prototyping\Platformer\HelloGL\x64\Debug\HelloGL.exe : fatal error LNK1120: 12 unresolved externals
