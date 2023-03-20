@@ -1,2 +1,5 @@
-﻿  Pyramid.cpp
+﻿  GLUTCallbacks.cpp
+  HelloGL.cpp
+  main.cpp
+  Generating Code...
   HelloGL.vcxproj -> C:\Users\Bobbic\Documents\Rapid games prototyping\Platformer\HelloGL\Debug\HelloGL.exe

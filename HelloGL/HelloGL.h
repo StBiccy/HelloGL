@@ -14,7 +14,7 @@ private:
 
 	Camera* camera;
 
-	SceneObjects* objects[1000];
+	SceneObjects* objects[200];
 
 public:
 	HelloGL(int argc, char* argv[]);
