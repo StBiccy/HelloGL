@@ -23,6 +23,8 @@ public:
 	~HelloGL(void);
 	void Display();
 
+	void InitObjects();
+	void InitGL(int argc, char* argv[]);
 
 	void Update();
 
