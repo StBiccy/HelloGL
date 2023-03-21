@@ -15,13 +15,12 @@ Pyramid::~Pyramid()
 
 void Pyramid::Draw()
 {
-	if (_mesh->vertices != nullptr && _mesh->colours != nullptr && _mesh->Indices != nullptr)
+	if (_mesh->vertices != nullptr && _mesh->Normals != nullptr && _mesh->Indices != nullptr)
 	{
 
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glEnableClientState(GL_COLOR_ARRAY);
 		glVertexPointer(3, GL_FLOAT, 0, _mesh->vertices);
-		glColorPointer(3, GL_FLOAT, 0, _mesh->colours);
 
 		glPushMatrix();
 		glTranslatef(postition.x, postition.y, postition.z);

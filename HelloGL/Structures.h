@@ -44,14 +44,14 @@ struct TextureCoordanate
 struct Lighting
 {
 	Vector4 Ambient;
-	Vector4 Deffuse;
+	Vector4 Diffuse;
 	Vector4 Specular;
 };
 
 struct Material
 {
 	Vector4 Ambient;
-	Vector4 Deffuse;
+	Vector4 Diffuse;
 	Vector4 Specular;
 	GLfloat Shininess;
 };

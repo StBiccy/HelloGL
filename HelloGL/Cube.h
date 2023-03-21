@@ -16,6 +16,7 @@ private:
 
 	GLfloat rotation;
 
+	Material* material;
 
 public:
 	Cube(Mesh* mesh, Texture2D* texture, GLfloat x, GLfloat y, GLfloat z);
