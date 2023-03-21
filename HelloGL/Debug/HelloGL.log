@@ -1,4 +1,4 @@
-﻿  HelloGL.cpp
-  Texture2D.cpp
+﻿  BitmapLoader.cpp
+  main.cpp
   Generating Code...
-  HelloGL.vcxproj -> C:\Users\Bobbic\Documents\Rapid games prototyping\Platformer\HelloGL\Debug\HelloGL.exe
+  HelloGL.vcxproj -> C:\Users\a018366m\Documents\GitHub\HelloGL\Debug\HelloGL.exe

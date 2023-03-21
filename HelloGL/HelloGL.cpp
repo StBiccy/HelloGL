@@ -45,7 +45,10 @@ void HelloGL::InitObjects()
 
 	Texture2D* texture = new Texture2D();
 
-	texture->Load((char*)"Penguins.raw", 512, 512);
+	BitmapLoader* bitMapImage = new BitmapLoader();
+	bitMapImage->LoadBitMap((char*)"snail.bmp", (char*)"snail.raw");
+
+	texture->Load((char*)"snail.raw", 256, 256);
 
 	for (int i = 0; i < 100; i++)
 	{

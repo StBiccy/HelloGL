@@ -36,11 +36,9 @@ bool Texture2D::Load(char* path, int width, int height)
 	 inFile.read(tempTexData, fileSize); //Read in all data in one go
 	 inFile.close();
 
-	 std::cout << "Loaded" << std::endl;
-
 	 glGenTextures(1, &ID); //Gen next texture ID
-	 glBindTexture(GL_TEXTURE_2D, ID); //Bind the texture to teh ID
-	 gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_RGB, GL_UNSIGNED_BYTE, tempTexData); //Specify the details of our texture image
+	 glBindTexture(GL_TEXTURE_2D, ID); //Bind the texture to the ID
+	 gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_RGB, GL_UNSIGNED_BYTE, tempTexData); 
 
 	 delete[] tempTexData;
 	 return true;

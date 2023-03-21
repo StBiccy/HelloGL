@@ -19,5 +19,6 @@ public:
 	GLuint GetID() const { return ID; }
 	int GetWidth() const { return _width; }
 	int GetHeight() const { return _height; }
+
 };
 

@@ -5,6 +5,7 @@
 #include "Pyramid.h"
 #include "Structures.h"
 #include "MeshLoader.h"
+#include "BitmapLoader.h"
 
 #define REFRESHRATE 16
 
