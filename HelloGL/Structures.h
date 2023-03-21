@@ -8,6 +8,14 @@ struct Vector3
 	float z;
 };
 
+struct Vector4
+{
+	float x;
+	float y;
+	float z;
+	float w;
+};
+
 //represents a camera
 struct Camera
 {
@@ -33,11 +41,26 @@ struct TextureCoordanate
 	GLfloat u, v;
 };
 
+struct Lighting
+{
+	Vector4 Ambient;
+	Vector4 Deffuse;
+	Vector4 Specular;
+};
+
+struct Material
+{
+	Vector4 Ambient;
+	Vector4 Deffuse;
+	Vector4 Specular;
+	GLfloat Shininess;
+};
+
 struct Mesh
 {
 	Vertex* vertices;
-	Colour* colours;
+	Vector3* Normals;
 	GLshort* Indices;
 	TextureCoordanate* texCoords;
-	int VertexCount, ColourCount, texCoordsCount, IndexCount;
+	int VertexCount, NormalCount, texCoordsCount, IndexCount;
 };
