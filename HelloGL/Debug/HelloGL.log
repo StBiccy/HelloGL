@@ -1,2 +1,3 @@
-﻿  HelloGL.cpp
-  HelloGL.vcxproj -> C:\Users\a018366m\Documents\GitHub\HelloGL\Debug\HelloGL.exe
+﻿  Suzanne.cpp
+C:\Users\Bobbic\Documents\Rapid games prototyping\Platformer\HelloGL\HelloGL\Suzanne.cpp(29,21): warning C4018: '<': signed/unsigned mismatch
+  HelloGL.vcxproj -> C:\Users\Bobbic\Documents\Rapid games prototyping\Platformer\HelloGL\Debug\HelloGL.exe

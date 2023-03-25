@@ -132,9 +132,11 @@
     <ClInclude Include="GLUTCallbacks.h" />
     <ClInclude Include="HelloGL.h" />
     <ClInclude Include="MeshLoader.h" />
+    <ClInclude Include="OBJLoader.h" />
     <ClInclude Include="Pyramid.h" />
     <ClInclude Include="SceneObjects.h" />
     <ClInclude Include="Structures.h" />
+    <ClInclude Include="Suzanne.h" />
     <ClInclude Include="Texture2D.h" />
   </ItemGroup>
   <ItemGroup>
@@ -144,8 +146,10 @@
     <ClCompile Include="HelloGL.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MeshLoader.cpp" />
+    <ClCompile Include="OBJLoader.cpp" />
     <ClCompile Include="Pyramid.cpp" />
     <ClCompile Include="SceneObjects.cpp" />
+    <ClCompile Include="Suzanne.cpp" />
     <ClCompile Include="Texture2D.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

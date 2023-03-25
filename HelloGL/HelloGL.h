@@ -3,9 +3,11 @@
 #include "GLUTCallbacks.h"
 #include "Cube.h"
 #include "Pyramid.h"
+#include "Suzanne.h"
 #include "Structures.h"
 #include "MeshLoader.h"
 #include "BitmapLoader.h"
+#include "OBJLoader.h"
 
 #define REFRESHRATE 16
 
@@ -15,7 +17,9 @@ class HelloGL
 private:
 	Camera* camera;
 
-	SceneObjects* objects[200];
+	
+
+	SceneObjects* objects[30];
 
 	Vector4* lightPositon;
 	Lighting* lightData;

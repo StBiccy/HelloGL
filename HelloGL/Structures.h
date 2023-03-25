@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 
 // represents a point in the 3D space
 struct Vector3
@@ -41,6 +42,13 @@ struct TextureCoordanate
 	GLfloat u, v;
 };
 
+struct Face
+{
+	GLint vertexIndex;
+	GLint texCoordIndex;
+	GLint normalIndex;
+};
+
 struct Lighting
 {
 	Vector4 Ambient;
@@ -63,4 +71,13 @@ struct Mesh
 	GLshort* Indices;
 	TextureCoordanate* texCoords;
 	int VertexCount, NormalCount, texCoordsCount, IndexCount;
+};
+
+struct OBJMesh
+{
+	std::vector<Vertex> vertices;
+	std::vector<Vector3> normals;
+	std::vector<TextureCoordanate> texCoords;
+
+	std::vector<Face> indices;
 };
