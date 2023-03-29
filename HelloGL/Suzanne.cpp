@@ -18,29 +18,27 @@ void Suzanne::Draw()
 {
 	if (!_objMesh->vertices.empty() && !_objMesh->normals.empty() && !_objMesh->texCoords.empty() && !_objMesh->indices.empty())
 	{
-		glBindTexture(GL_TEXTURE_2D, _texture->GetID());
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);		
+		glBindTexture(GL_TEXTURE_2D, _texture->GetID()); // binds texture to mesh
 
 		glPushMatrix();
-		glTranslatef(postition.x, postition.y, postition.z);
-		glRotatef(rotation, 1, 1, 1);
+		glTranslatef(postition.x, postition.y, postition.z);// sets postition of Suzanne
+		glRotatef(rotation, 1, 1, 1);// sets rotation of Suzanne
 
+		// draws Suzanne to screen with normals, texture coordantes, and vertices
 		glBegin(GL_TRIANGLES);
 		for (int i = 0; i < _objMesh->indices.size(); i++)
 		{
-			glTexCoord2f(_objMesh->texCoords[_objMesh->indices[i].texCoordIndex - 1].u, _objMesh->texCoords[_objMesh->indices[i].texCoordIndex - 1].v);
-			glNormal3f(_objMesh->normals[_objMesh->indices[i].normalIndex - 1].x, _objMesh->normals[_objMesh->indices[i].normalIndex - 1].y, _objMesh->normals[_objMesh->indices[i].normalIndex - 1].z);
-			glVertex3f(_objMesh->vertices[_objMesh->indices[i].vertexIndex - 1].x, _objMesh->vertices[_objMesh->indices[i].vertexIndex - 1].y, _objMesh->vertices[_objMesh->indices[i].vertexIndex - 1].z);
+			glTexCoord2fv(&_objMesh->texCoords[_objMesh->indices[i].texCoordIndex - 1].u);
+			glNormal3fv(&_objMesh->normals[_objMesh->indices[i].normalIndex - 1].x);
+			glVertex3fv(&_objMesh->vertices[_objMesh->indices[i].vertexIndex - 1].x);
 		}
 		glEnd();
 
 		glPopMatrix();
-
-		
 	}
 }
 
 void Suzanne::Update()
 {
-	rotation += 0.5f;
+	rotation += 0.5f;// updates rotation every frame
 }

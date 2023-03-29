@@ -9,6 +9,7 @@
 
 namespace OBJLoader
 {
+	// loads OBJ mesh from passed char*
 	OBJMesh* LoadOBJ(char* path);
 };
 

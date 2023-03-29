@@ -19,7 +19,7 @@ private:
 
 	
 
-	SceneObjects* objects[30];
+	SceneObjects* objects[60];
 
 	Vector4* lightPositon;
 	Lighting* lightData;

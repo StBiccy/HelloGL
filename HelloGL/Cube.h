@@ -11,11 +11,13 @@
 class Cube : public SceneObjects
 {
 private:
-
+	// represents position
 	Vector3 postition;
 
+	// represents rotation
 	GLfloat rotation;
 
+	// represents mateiral
 	Material* material;
 
 public:

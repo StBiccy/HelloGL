@@ -12,44 +12,49 @@ namespace OBJLoader
 	{
 		std::fstream inFile;
 
-		std::string line;
-		std::string prefix;
+		std::string line; // represents current line
+		std::string prefix; // represents prefix of line
+
 		stringstream ss;
+
 		OBJMesh* mesh = new OBJMesh;
 
 		inFile.open(path);
 
+		// check if in file opened correctly
 		if (!inFile.good())
 		{
 			std::cerr << "Can't open mesh file " << path << std::endl;
 			return nullptr;
 		}
 
+		// loop though obj file
 		while (std::getline(inFile, line))
 		{
 			ss.clear();
 			ss.str(line);
 			ss >> prefix;
 
-			if (prefix == "v")
+			
+			if (prefix == "v") // assign vertices
 			{
 				Vertex tempVertex;
 				ss >> tempVertex.x >> tempVertex.y >> tempVertex.z;
 				mesh->vertices.push_back(tempVertex);
 			}
-			else if (prefix == "vt")
+			else if (prefix == "vt") // assign UVs
 			{
 				TextureCoordanate tempTexCoord;
 				ss >> tempTexCoord.u >> tempTexCoord.v;
 				mesh->texCoords.push_back(tempTexCoord);
 			}
-			else if (prefix == "vn")
+			else if (prefix == "vn") // assign normals
 			{
 				Vector3 tempNormal;
 				ss >> tempNormal.x >> tempNormal.y >> tempNormal.z;
 				mesh->normals.push_back(tempNormal);
 			}
-			else if (prefix == "f")
+			else if (prefix == "f") // assign indices
 			{
 				Face tempFace;
 				int tempInt;

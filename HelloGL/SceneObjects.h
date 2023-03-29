@@ -9,13 +9,13 @@
 class SceneObjects
 {
 protected:
-	Mesh* _mesh;
-	OBJMesh* _objMesh;
-	Texture2D* _texture;
-
+	Mesh* _mesh; // represents mesh to draw
+	OBJMesh* _objMesh; // represents obj mesh to draw
+	Texture2D* _texture; // represents texture data
 public:
-	SceneObjects(Mesh* mesh, Texture2D* texture);
-	SceneObjects(OBJMesh* mesh, Texture2D* texture);
+	SceneObjects(Mesh* mesh, Texture2D* texture); // load for default mesh
+
+	SceneObjects(OBJMesh* mesh, Texture2D* texture); //load for obj mesh
 
 	virtual ~SceneObjects();
 

@@ -9,6 +9,7 @@
 
 namespace MeshLoader
 {
+	// loads mesh from passed on char*
 	Mesh* Load(char* path);
 };
 

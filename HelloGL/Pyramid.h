@@ -12,7 +12,7 @@ class Pyramid : public SceneObjects
 {
 private:
 
-	Vector3 postition;
+	Vector3 postition; //represents position of pyramid
 
 public:
 	Pyramid(Mesh* mesh, GLfloat x, GLfloat y, GLfloat z);

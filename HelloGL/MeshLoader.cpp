@@ -8,7 +8,6 @@ using namespace std;
 namespace MeshLoader
 {
 	void LoadVertices(ifstream& inFile, Mesh& mesh);
-	void LoadColours(ifstream& inFile, Mesh& mesh);
 	void LoadIndices(ifstream& inFile, Mesh& mesh);
 	void LoadUV(ifstream& inFile, Mesh& mesh);
 
@@ -16,6 +15,7 @@ namespace MeshLoader
 	{
 		inFile >> mesh.VertexCount;
 
+		// loop though vertex count assigning each vertex to the correct point in the array
 		if (mesh.VertexCount > 0)
 		{
 			mesh.vertices = new Vertex[mesh.VertexCount];
@@ -33,6 +33,7 @@ namespace MeshLoader
 	{
 		inFile >> mesh.NormalCount;
 
+		// loop though normal count assigning each normal to the correct point in the array
 		if (mesh.VertexCount > 0)
 		{
 			mesh.Normals = new Vector3[mesh.NormalCount];
@@ -50,6 +51,7 @@ namespace MeshLoader
 	{
 		inFile >> mesh.texCoordsCount;
 
+		// loop though texture coordanate count assigning each Texture coordanate to the correct point in the array
 		if (mesh.texCoordsCount > 0)
 		{
 			mesh.texCoords = new TextureCoordanate[mesh.texCoordsCount];
@@ -66,6 +68,7 @@ namespace MeshLoader
 	{
 		inFile >> mesh.IndexCount;
 
+		// loop though index count assigning each index to the correct point in the array
 		if (mesh.IndexCount > 0)
 		{
 			mesh.Indices = new GLshort[mesh.IndexCount];
@@ -83,15 +86,16 @@ namespace MeshLoader
 		Mesh* mesh = new Mesh();
 
 		ifstream inFile;
-
 		inFile.open(path);
 
+		// check if file opened without error
 		if (!inFile.good())  
 		{
 			cerr  << "Can't open mesh file " << path << endl;
 			return nullptr;
 		}
 
+		// load vertex data
 		LoadVertices(inFile, *mesh);
 		LoadUV(inFile, *mesh);
 		LoadNormals(inFile, *mesh);

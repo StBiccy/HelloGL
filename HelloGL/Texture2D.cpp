@@ -23,6 +23,7 @@ bool Texture2D::Load(char* path, int width, int height)
 
 	 inFile.open(path, std::ios::binary);
 
+	 // check to see if texture file loaded correctly
 	 if (!inFile.good())
 	 {
 		 std::cerr << "Can't open texture file: " << path << std::endl;
@@ -38,7 +39,7 @@ bool Texture2D::Load(char* path, int width, int height)
 
 	 glGenTextures(1, &ID); //Gen next texture ID
 	 glBindTexture(GL_TEXTURE_2D, ID); //Bind the texture to the ID
-	 gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_RGB, GL_UNSIGNED_BYTE, tempTexData); 
+	 gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_RGB, GL_UNSIGNED_BYTE, tempTexData); //builds the texture as a mipmap
 
 	 delete[] tempTexData;
 	 return true;
