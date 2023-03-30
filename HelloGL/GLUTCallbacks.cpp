@@ -27,8 +27,14 @@ namespace GLUTCallbacks
 		updateTime = glutGet(GLUT_ELAPSED_TIME) - updateTime;
 		glutTimerFunc(preferedRefesh - updateTime, GLUTCallbacks::Timer, preferedRefesh);
 	}
-	void Keyboard(unsigned char key, int x, int y)
+
+	void KeyboardUp(unsigned char key, int x, int y)
 	{
-		helloGL->Keyboard(key, x, y);
+		helloGL->KeyboardUp(key, x, y);
+	}
+
+	void KeyboardDown(unsigned char key, int x, int y)
+	{
+		helloGL->KeyboardDown(key, x, y);
 	}
 }

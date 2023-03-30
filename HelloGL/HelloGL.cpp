@@ -6,7 +6,7 @@ HelloGL::HelloGL(int argc, char* argv[])
 	InitGL(argc, argv);	// initialse opengl methods
 	InitObjects(); // initialse objects
 	InitLighting(); // initialse ligithing
-
+	InitCharacter(); // initialse character
 	glutMainLoop(); // start loop
 }
 
@@ -20,7 +20,8 @@ void HelloGL::InitGL(int argc, char* argv[])
 	glutCreateWindow("Simple OpenGL Program");// give window a title
 	glutDisplayFunc(GLUTCallbacks::Display);// setup display fucntion
 	glutTimerFunc(REFRESHRATE, GLUTCallbacks::Timer, REFRESHRATE);// setup timer fucntion
-	glutKeyboardFunc(GLUTCallbacks::Keyboard);// setup keyboard inputs callbacks
+	glutKeyboardFunc(GLUTCallbacks::KeyboardDown);// setup keyboard inputs callbacks
+	glutKeyboardUpFunc(GLUTCallbacks::KeyboardUp);// setup keyboard inputs callbacks
 	glMatrixMode(GL_PROJECTION);// switch to the GL_PROJECTION matrix mode for the following methods
 	glLoadIdentity();// replaces current matix with identity matrix
 	glViewport(0, 0, 800, 800);// set viewport to be entire window
@@ -32,18 +33,11 @@ void HelloGL::InitGL(int argc, char* argv[])
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
+
 }
 
 void HelloGL::InitObjects()
 {
-	// initialise main camera
-	camera = new Camera();
-
-	// setup camera values
-	camera->eye.x = 0.0f; camera->eye.y = 0.0f; camera->eye.z = 5.0f;
-	camera->center.x = 0.0f; camera->center.y = 0.0f; camera->center.z = 0.0f;
-	camera->up.x = 0.0f; camera->up.y = 1.0f; camera->up.z = 0.0f;
-
 	// initialise obj mesh
 	OBJMesh* objMesh = OBJLoader::LoadOBJ((char*)"Meshes/suzan.obj");	
 
@@ -91,17 +85,25 @@ void HelloGL::InitLighting()
 	lightData->Specular.w = 1.0f;
 }
 
+void HelloGL::InitCharacter()
+{
+	player = new CharacterController(0.0f, 0.0f, 5.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+}
 
 void HelloGL::Update()
 {
+	/*glutWarpPointer(400, 400);*/
+
+
 	glLoadIdentity(); //resets the ideity matrix at the start of every frame
-	gluLookAt(camera->eye.x, camera->eye.y, camera->eye.z, camera->center.x, camera->center.y, camera->center.z, camera->up.x, camera->up.y, camera->up.z); //refreshes what the camera is looking at
+
+	player->Update();
 
 	// updates the scene objects every frame
 	for (int i = 0; i < 60; i++)
 	{
 		objects[i]->Update();
-	}
+	}		
 
 	//sets the light up every frame
 	glLightfv(GL_LIGHT0, GL_AMBIENT, &(lightData->Ambient.x));
@@ -125,9 +127,47 @@ void HelloGL::Display()
 	glutSwapBuffers(); // swaps buffer of current window if double buffered
 }
 
-void HelloGL::Keyboard(unsigned char key, int x, int y)
+void HelloGL::KeyboardUp(unsigned char key, int x, int y)
 {
+	if (key == 'w')
+	{
+		player->wDown = false;
+	}
+	else if (key == 's')
+	{
+		player->sDown = false;
 
+	}
+	else if (key == 'a')
+	{
+		player->aDown = false;
+
+	}
+	else if (key == 'd')
+	{
+		player->dDown = false;
+	}
+}
+
+void HelloGL::KeyboardDown(unsigned char key, int x, int y)
+{
+	if (key == 'w')
+	{
+		player->wDown = true;
+	}	
+	else if (key == 's')
+	{
+		player->sDown = true;
+	}
+	else if (key == 'a')
+	{
+		player->aDown = true;
+
+	}
+	else if (key == 'd')
+	{
+		player->dDown = true;
+	}
 }
 
 HelloGL::~HelloGL(void)
