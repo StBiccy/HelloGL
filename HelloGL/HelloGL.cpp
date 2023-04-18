@@ -87,7 +87,7 @@ void HelloGL::InitLighting()
 
 void HelloGL::InitCharacter()
 {
-	player = new CharacterController(0.0f, 0.0f, 5.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+	player = new CharacterController(0.0f, 0.0f, 5.0f, 0.0f, 0.0f, -5.0f, 0.0f, 1.0f, 0.0f);
 }
 
 void HelloGL::Update()

@@ -1,2 +1,13 @@
 ﻿  CharacterController.cpp
-  HelloGL.vcxproj -> C:\Users\a018366m\Documents\GitHub\GEC-Sem2\HelloGL\Debug\HelloGL.exe
+C:\Users\a018366m\Documents\GitHub\HelloGL\HelloGL\CharacterController.cpp(33,42): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\a018366m\Documents\GitHub\HelloGL\HelloGL\CharacterController.cpp(34,22): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\a018366m\Documents\GitHub\HelloGL\HelloGL\CharacterController.cpp(35,42): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  GLUTCallbacks.cpp
+  HelloGL.cpp
+C:\Users\a018366m\Documents\GitHub\HelloGL\HelloGL\HelloGL.cpp(176,18): warning C4154: deletion of an array expression; conversion to pointer supplied
+  main.cpp
+  Generating Code...
+GLUTCallbacks.obj : error LNK2005: "float __cdecl math::radian(float)" (?radian@math@@YAMM@Z) already defined in CharacterController.obj
+HelloGL.obj : error LNK2005: "float __cdecl math::radian(float)" (?radian@math@@YAMM@Z) already defined in CharacterController.obj
+main.obj : error LNK2005: "float __cdecl math::radian(float)" (?radian@math@@YAMM@Z) already defined in CharacterController.obj
+C:\Users\a018366m\Documents\GitHub\HelloGL\Debug\HelloGL.exe : fatal error LNK1169: one or more multiply defined symbols found

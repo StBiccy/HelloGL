@@ -21,7 +21,7 @@ struct Vector4
 struct Camera
 {
 	Vector3 eye;// where the eye/postion of the camera is placed
-	Vector3 center; // where the center/focal point of the camera is
+	Vector3 frount; // represents the direction the camera is looking
 	Vector3 up; //represents the rotation of the camera/where the upwards direction of it is
 };
 
