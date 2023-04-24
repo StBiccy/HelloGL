@@ -8,7 +8,7 @@ CharacterController::CharacterController(float posX, float posY, float posZ, flo
 	pitch = 00.0f;
 	yaw = -80.0f;
 	
-	sensitivity = 0.05f;
+	sensitivity = 0.06f;
 
 	//setup camera
 	cam = new Camera;
