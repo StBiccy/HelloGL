@@ -20,8 +20,12 @@ void HelloGL::InitGL(int argc, char* argv[])
 	glutCreateWindow("Simple OpenGL Program");// give window a title
 	glutDisplayFunc(GLUTCallbacks::Display);// setup display fucntion
 	glutTimerFunc(REFRESHRATE, GLUTCallbacks::Timer, REFRESHRATE);// setup timer fucntion
+
 	glutKeyboardFunc(GLUTCallbacks::KeyboardDown);// setup keyboard inputs callbacks
 	glutKeyboardUpFunc(GLUTCallbacks::KeyboardUp);// setup keyboard inputs callbacks
+	glutPassiveMotionFunc(GLUTCallbacks::PassiveMotion);// setup for mouse position callbacks
+	
+
 	glMatrixMode(GL_PROJECTION);// switch to the GL_PROJECTION matrix mode for the following methods
 	glLoadIdentity();// replaces current matix with identity matrix
 	glViewport(0, 0, 800, 800);// set viewport to be entire window
@@ -92,9 +96,6 @@ void HelloGL::InitCharacter()
 
 void HelloGL::Update()
 {
-	/*glutWarpPointer(400, 400);*/
-
-
 	glLoadIdentity(); //resets the ideity matrix at the start of every frame
 
 	player->Update();
@@ -174,4 +175,9 @@ HelloGL::~HelloGL(void)
 {
 	delete camera;
 	delete[] objects;
+}
+
+void HelloGL::PassiveMotion(int x, int y)
+{
+	player->PassiveMotion(x, y);
 }

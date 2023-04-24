@@ -4,7 +4,7 @@
 #include <gl/GlU.h>
 #include "GL\freeglut.h"
 #include "Structures.h"
-#include "Math.h"
+#include "Mathf.h"
 
 #define SPEED 1.0f
 
@@ -15,9 +15,10 @@ private:
 	Vector3 velocity;// represent velocity
 	Camera* cam;// represent camera
 
-	Vector3 camDirection;
 	float pitch;
 	float yaw;
+
+	float sensitivity;
 
 protected:
 
@@ -32,8 +33,9 @@ public:
 	CharacterController(float posX, float posY, float posZ, float centerX, float centerY, float centerZ, float upX, float upY, float upZ);
 	~CharacterController();
 
-	Vector3 DirectionUpdate();
+	void DirectionUpdate();
 
+	void PassiveMotion(int x, int y);
 
 
 	void Update();

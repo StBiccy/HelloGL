@@ -37,4 +37,9 @@ namespace GLUTCallbacks
 	{
 		helloGL->KeyboardDown(key, x, y);
 	}
+
+	void PassiveMotion(int x, int y)
+	{
+		helloGL->PassiveMotion(x, y);
+	}
 }

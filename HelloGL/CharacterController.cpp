@@ -5,16 +5,18 @@ CharacterController::CharacterController(float posX, float posY, float posZ, flo
 	//setup position
 	position.x = posX, position.y = posY, position.z = posZ;
 
-	pitch = 0.0f;
-	yaw = -90.0f;
+	pitch = 00.0f;
+	yaw = -80.0f;
 	
-	DirectionUpdate();
+	sensitivity = 0.01;
 
 	//setup camera
 	cam = new Camera;
 	cam->eye.x = posX, cam->eye.y = posY, cam->eye.z = posZ;
 	cam->up.x = upX, cam->up.y = upY, cam->up.z = upZ;
-	cam->frount.x = frountX, cam->frount.y = frountY, cam->frount.z = frountZ;
+
+	DirectionUpdate();
+
 
 	//setup  input checks
 	wDown = false;
@@ -28,12 +30,14 @@ CharacterController::~CharacterController()
 	delete cam;
 }
 
-Vector3 CharacterController::DirectionUpdate()
+void CharacterController::DirectionUpdate()
 {
-	camDirection.x = cos(math::radian(yaw)) * cos(math::radian(pitch));
-	camDirection.y = sin(math::radian(pitch));
-	camDirection.z = sin(math::radian(yaw)) * cos(math::radian(pitch));
-	return camDirection;
+	Vector3 camDirection;
+	camDirection.x = cosf(Mathf::Radian(yaw)) * cosf(Mathf::Radian(pitch));
+	camDirection.y = sinf(Mathf::Radian(pitch));
+	camDirection.z = sinf(Mathf::Radian(yaw)) * cosf(Mathf::Radian(pitch));
+	
+	cam->frount = camDirection;;
 }
 
 void CharacterController::Update()
@@ -62,10 +66,24 @@ void CharacterController::Update()
 	//	velocity.x += 1 * SPEED;
 	//}
 
-	////set position
+	//set position
 	//position.x += velocity.x, position.y += velocity.y, position.z += velocity.z;
 
-	// updated cam with position values
-	//cam->eye.x = position.x, cam->eye.y = position.y, cam->eye.z = position.z;
-	//cam->center.x = position.x, cam->center.y = position.y, cam->center.z = position.z - 5;
+	//updated cam with position values
+	cam->eye.x = position.x, cam->eye.y = position.y, cam->eye.z = position.z;
+	
+}
+
+void CharacterController::PassiveMotion(int x, int y)
+{
+	float xDelta = 400 - x;
+	float yDelta = 400 - y;
+
+	pitch += yDelta * sensitivity;
+	yaw -= xDelta * sensitivity;
+
+	DirectionUpdate();
+
+	glutWarpPointer(400, 400);
+
 }

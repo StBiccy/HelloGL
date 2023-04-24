@@ -8,5 +8,6 @@ namespace GLUTCallbacks
 	void Timer(int preferedRefresh);
 	void KeyboardUp(unsigned char key, int x, int y);
 	void KeyboardDown(unsigned char key, int x, int y);
+	void PassiveMotion(int x, int y);
 };
 

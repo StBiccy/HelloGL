@@ -51,7 +51,7 @@
     <ClInclude Include="CharacterController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Math.h">
+    <ClInclude Include="Mathf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
