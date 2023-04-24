@@ -1,5 +1,2 @@
 ﻿  CharacterController.cpp
-C:\Users\Bobbic\Documents\Rapid games prototyping\Platformer\HelloGL\HelloGL\CharacterController.cpp(11,20): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\Bobbic\Documents\Rapid games prototyping\Platformer\HelloGL\HelloGL\CharacterController.cpp(79,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\Bobbic\Documents\Rapid games prototyping\Platformer\HelloGL\HelloGL\CharacterController.cpp(80,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
   HelloGL.vcxproj -> C:\Users\Bobbic\Documents\Rapid games prototyping\Platformer\HelloGL\Debug\HelloGL.exe

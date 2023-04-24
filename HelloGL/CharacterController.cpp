@@ -8,7 +8,7 @@ CharacterController::CharacterController(float posX, float posY, float posZ, flo
 	pitch = 00.0f;
 	yaw = -80.0f;
 	
-	sensitivity = 0.01;
+	sensitivity = 0.05f;
 
 	//setup camera
 	cam = new Camera;
@@ -37,7 +37,7 @@ void CharacterController::DirectionUpdate()
 	camDirection.y = sinf(Mathf::Radian(pitch));
 	camDirection.z = sinf(Mathf::Radian(yaw)) * cosf(Mathf::Radian(pitch));
 	
-	cam->frount = camDirection;;
+	cam->frount = Mathf::Normalise(camDirection);
 }
 
 void CharacterController::Update()
@@ -48,26 +48,54 @@ void CharacterController::Update()
 	//reset velocity
 	velocity.x = 0, velocity.y = 0, velocity.z = 0;
 
+	
+
 	// input checks
-	//if (wDown == true)
-	//{
-	//	velocity.z -= 1 * SPEED;
-	//}
-	//if (sDown == true)
-	//{
-	//	velocity.z += 1 * SPEED;
-	//}
-	//if (aDown == true)
-	//{
-	//	velocity.x -= 1 * SPEED;
-	//}
-	//if (dDown == true)
-	//{
-	//	velocity.x += 1 * SPEED;
-	//}
+	if (wDown == true)
+	{
+		velocity.x += cam->frount.x;
+		velocity.z += cam->frount.z;
+		
+	}
+	if (sDown == true)
+	{
+		velocity.x -= cam->frount.x;
+		velocity.z -= cam->frount.z;
+		
+	}
+	if (aDown == true)
+	{
+		Vector3 left;
+		left.x = cosf(Mathf::Radian(yaw - 90)) * cosf(Mathf::Radian(pitch));
+		left.y = sinf(Mathf::Radian(pitch));
+		left.z = sinf(Mathf::Radian(yaw - 90)) * cosf(Mathf::Radian(pitch));
+		left = Mathf::Normalise(left);
+
+		velocity.x += left.x;
+		velocity.z += left.z;
+		
+	}
+	if (dDown == true)
+	{
+		
+		Vector3 right;
+		right.x = cosf(Mathf::Radian(yaw + 90)) * cosf(Mathf::Radian(pitch));
+		right.y = sinf(Mathf::Radian(pitch));
+		right.z = sinf(Mathf::Radian(yaw + 90)) * cosf(Mathf::Radian(pitch));
+		right = Mathf::Normalise(right);
+
+		velocity.x += right.x;
+		velocity.z += right.z;
+		
+	}
+
+	if (velocity.x != 0 && velocity.z != 0)
+	velocity = Mathf::Normalise(velocity);
+
+	velocity.x *= SPEED; velocity.y *= SPEED; velocity.z *= SPEED;
 
 	//set position
-	//position.x += velocity.x, position.y += velocity.y, position.z += velocity.z;
+	position.x += velocity.x, position.y += velocity.y, position.z += velocity.z;
 
 	//updated cam with position values
 	cam->eye.x = position.x, cam->eye.y = position.y, cam->eye.z = position.z;
@@ -76,14 +104,13 @@ void CharacterController::Update()
 
 void CharacterController::PassiveMotion(int x, int y)
 {
-	float xDelta = 400 - x;
-	float yDelta = 400 - y;
+	glutWarpPointer(400, 400);
+
+	float xDelta = 400.0f - x;
+	float yDelta = 400.0f - y;
 
 	pitch += yDelta * sensitivity;
 	yaw -= xDelta * sensitivity;
 
 	DirectionUpdate();
-
-	glutWarpPointer(400, 400);
-
 }
