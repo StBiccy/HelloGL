@@ -16,7 +16,7 @@ private:
 	Camera* cam;// represent camera
 
 	float pitch;// represents rotation in the x axis
-	float yaw;// represents rotation in the z axis
+	float yaw;// represents rotation in the y axis
 
 	float sensitivity;// represents camera sensitiviy
 
