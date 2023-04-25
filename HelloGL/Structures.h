@@ -9,6 +9,7 @@ struct Vector3
 	float z;
 };
 
+// represents a 4D vector
 struct Vector4
 {
 	float x;
@@ -37,11 +38,13 @@ struct Vertex
 	GLfloat x, y, z;
 };
 
+//represnts a uv coordanates
 struct TextureCoordanate
 {
 	GLfloat u, v;
 };
 
+// represents a face on a mesh
 struct Face
 {
 	GLint vertexIndex;
@@ -49,6 +52,7 @@ struct Face
 	GLint normalIndex;
 };
 
+// represents lighting data
 struct Lighting
 {
 	Vector4 Ambient;
@@ -56,6 +60,7 @@ struct Lighting
 	Vector4 Specular;
 };
 
+// represents material data
 struct Material
 {
 	Vector4 Ambient;
@@ -64,6 +69,7 @@ struct Material
 	GLfloat Shininess;
 };
 
+// represents a basic mesh
 struct Mesh
 {
 	Vertex* vertices;
@@ -73,6 +79,7 @@ struct Mesh
 	int VertexCount, NormalCount, texCoordsCount, IndexCount;
 };
 
+//represnts a mesh loaded from an obj file
 struct OBJMesh
 {
 	std::vector<Vertex> vertices;

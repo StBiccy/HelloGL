@@ -15,13 +15,10 @@ private:
 	Vector3 velocity;// represent velocity
 	Camera* cam;// represent camera
 
-	float pitch;
-	float yaw;
+	float pitch;// represents rotation in the x axis
+	float yaw;// represents rotation in the z axis
 
-	float sensitivity;
-
-protected:
-
+	float sensitivity;// represents camera sensitiviy
 
 public:
 	// input checks
@@ -33,10 +30,9 @@ public:
 	CharacterController(float posX, float posY, float posZ, float centerX, float centerY, float centerZ, float upX, float upY, float upZ);
 	~CharacterController();
 
-	void DirectionUpdate();
+	void DirectionUpdate();//update camera direction
 
-	void PassiveMotion(int x, int y);
-
+	void PassiveMotion(int x, int y);// update on mouse movement
 
 	void Update();
 };

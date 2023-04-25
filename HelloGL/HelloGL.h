@@ -15,29 +15,27 @@
 class HelloGL
 {
 private:
-	Camera* camera;
+	CharacterController* player; // represnts the player character
 
-	CharacterController* player;
+	SceneObjects* objects[60]; // represents all scene objects
 
-	SceneObjects* objects[60];
-
-	Vector4* lightPositon;
-	Lighting* lightData;
+	Vector4* lightPositon; // represents the lighting position
+	Lighting* lightData; // represnets the light data
 
 public:
 	HelloGL(int argc, char* argv[]);
 	~HelloGL(void);
-	void Display();
+	void Display(); // updates the display
 
-	void InitLighting();
-	void InitObjects();
-	void InitGL(int argc, char* argv[]);
-	void InitCharacter();
+	void InitLighting(); // initilise lighting
+	void InitObjects(); // initilise objects
+	void InitGL(int argc, char* argv[]); // intilise the GL methods
+	void InitCharacter(); // initilise character
 
-	void Update();
+	void Update(); // update scene
 
-	void KeyboardDown(unsigned char key, int x, int y);
-	void KeyboardUp(unsigned char key, int x, int y);
-	void PassiveMotion(int x, int y);
+	void KeyboardDown(unsigned char key, int x, int y); // update on key press
+	void KeyboardUp(unsigned char key, int x, int y); // update on key release
+	void PassiveMotion(int x, int y); // update on mouse motiion
 };
 

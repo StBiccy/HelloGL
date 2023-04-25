@@ -12,6 +12,7 @@ namespace GLUTCallbacks
 	{
 		helloGL = gl;
 	}
+
 	void Display()
 	{
 		if (helloGL != nullptr)

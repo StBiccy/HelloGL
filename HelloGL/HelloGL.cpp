@@ -24,6 +24,7 @@ void HelloGL::InitGL(int argc, char* argv[])
 	glutKeyboardFunc(GLUTCallbacks::KeyboardDown);// setup keyboard inputs callbacks
 	glutKeyboardUpFunc(GLUTCallbacks::KeyboardUp);// setup keyboard inputs callbacks
 	glutPassiveMotionFunc(GLUTCallbacks::PassiveMotion);// setup for mouse position callbacks
+	glutSetCursor(GLUT_CURSOR_NONE);// hides the Cursor 
 	
 
 	glMatrixMode(GL_PROJECTION);// switch to the GL_PROJECTION matrix mode for the following methods
@@ -91,6 +92,7 @@ void HelloGL::InitLighting()
 
 void HelloGL::InitCharacter()
 {
+	//initalise the player character
 	player = new CharacterController(0.0f, 0.0f, 5.0f, 0.0f, 0.0f, -5.0f, 0.0f, 1.0f, 0.0f);
 }
 
@@ -130,6 +132,7 @@ void HelloGL::Display()
 
 void HelloGL::KeyboardUp(unsigned char key, int x, int y)
 {
+	// set a bool for which keys are down in the player script
 	if (key == 'w')
 	{
 		player->wDown = false;
@@ -152,6 +155,7 @@ void HelloGL::KeyboardUp(unsigned char key, int x, int y)
 
 void HelloGL::KeyboardDown(unsigned char key, int x, int y)
 {
+	// set a bool for which keys are up in the player script
 	if (key == 'w')
 	{
 		player->wDown = true;
@@ -173,8 +177,10 @@ void HelloGL::KeyboardDown(unsigned char key, int x, int y)
 
 HelloGL::~HelloGL(void)
 {
-	delete camera;
-	delete[] objects;
+	delete player;
+	delete objects;
+	delete lightData;
+	delete lightPositon;
 }
 
 void HelloGL::PassiveMotion(int x, int y)
