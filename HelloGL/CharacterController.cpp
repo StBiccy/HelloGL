@@ -114,3 +114,8 @@ void CharacterController::PassiveMotion(int x, int y)
 	// update the camera direction
 	DirectionUpdate();
 }
+
+Camera CharacterController::GetCamera()
+{
+	return *cam;
+}

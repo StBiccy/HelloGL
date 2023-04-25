@@ -37,5 +37,7 @@ public:
 	void KeyboardDown(unsigned char key, int x, int y); // update on key press
 	void KeyboardUp(unsigned char key, int x, int y); // update on key release
 	void PassiveMotion(int x, int y); // update on mouse motiion
+
+	void DrawString(const char* text, Vector3* position, Colour* colour);//call for drawing the string;
 };
 

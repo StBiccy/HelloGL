@@ -44,7 +44,7 @@ void HelloGL::InitGL(int argc, char* argv[])
 void HelloGL::InitObjects()
 {
 	// initialise obj mesh
-	OBJMesh* objMesh = OBJLoader::LoadOBJ((char*)"Meshes/suzan.obj");	
+	OBJMesh* objMesh = OBJLoader::LoadOBJ((char*)"Meshes/world.obj");	
 
 	// initilaise texture2D
 	Texture2D* monkeyTex = new Texture2D();
@@ -60,7 +60,7 @@ void HelloGL::InitObjects()
 	// setup objects
 	for (int i = 0; i < 60; i++)
 	{
-		objects[i] = new Suzanne(objMesh, monkeyTex,((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -(rand() % 1000) / 10.0f);
+		objects[i] = new Suzanne(objMesh, monkeyTex, 0,0,0/*((rand() % 400) / 10.0f) - 20.0f, 0, -(rand() % 1000) / 10.0f*/);
 	}
 
 }
@@ -93,7 +93,7 @@ void HelloGL::InitLighting()
 void HelloGL::InitCharacter()
 {
 	//initalise the player character
-	player = new CharacterController(0.0f, 0.0f, 5.0f, 0.0f, 0.0f, -5.0f, 0.0f, 1.0f, 0.0f);
+	player = new CharacterController(0.0f, 5.0f, 5.0f, 0.0f, 0.0f, -5.0f, 0.0f, 1.0f, 0.0f);
 }
 
 void HelloGL::Update()
@@ -103,7 +103,7 @@ void HelloGL::Update()
 	player->Update();
 
 	// updates the scene objects every frame
-	for (int i = 0; i < 60; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		objects[i]->Update();
 	}		
@@ -126,8 +126,28 @@ void HelloGL::Display()
 		objects[i]->Draw();
 	}
 
+	
+
+	Vector3 v = { 0.0f,0.0f,0.0f };
+	
+	Colour c = { 0.0f,1.0f,0.0f };
+
+	DrawString("Hello World Boy!", &v, &c);
+
 	glFlush();// empties all buffers, and preforms all issued commands
 	glutSwapBuffers(); // swaps buffer of current window if double buffered
+}
+
+void HelloGL::DrawString(const char* text, Vector3* position, Colour* colour)
+{
+	glDisable(GL_LIGHTING);
+	glPushMatrix();
+	glColor3f(colour->r, colour->g, colour->b);
+	glTranslatef(position->x, position->y, position->z);
+	glRasterPos2f(0.0f,0.0f);
+	glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24, (unsigned char*)text);
+	glPopMatrix();
+	glEnable(GL_LIGHTING);
 }
 
 void HelloGL::KeyboardUp(unsigned char key, int x, int y)

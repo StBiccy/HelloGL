@@ -22,7 +22,7 @@ void Suzanne::Draw()
 
 		glPushMatrix();
 		glTranslatef(postition.x, postition.y, postition.z);// sets postition of Suzanne
-		glRotatef(rotation, 1, 1, 1);// sets rotation of Suzanne
+		//glRotatef(rotation, 1, 1, 1);// sets rotation of Suzanne
 
 		// draws Suzanne to screen with normals, texture coordantes, and vertices
 		glBegin(GL_TRIANGLES);
