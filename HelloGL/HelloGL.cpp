@@ -28,7 +28,7 @@ void HelloGL::InitGL(int argc, char* argv[])
 	
 
 	glMatrixMode(GL_PROJECTION);// switch to the GL_PROJECTION matrix mode for the following methods
-	glLoadIdentity();// replaces current matix with identity matrix
+	glLoadIdentity();// replaces current martix with identity matrix
 	glViewport(0, 0, 800, 800);// set viewport to be entire window
 	gluPerspective(45, 1, 1, 1000); // sets the correct perspective 
 	glMatrixMode(GL_MODELVIEW);// switches back to the GL_MODELVIEW matrix so we can load our models
@@ -70,7 +70,7 @@ void HelloGL::InitLighting()
 	// setup lightinhg position
 	lightPositon = new Vector4();
 	lightPositon->x = 0.0f;
-	lightPositon->y = 0.0f;
+	lightPositon->y = 10.0f;
 	lightPositon->z = 1.0f;
 	lightPositon->w = 0.0f;
 
@@ -94,11 +94,12 @@ void HelloGL::InitCharacter()
 {
 	//initalise the player character
 	player = new CharacterController(0.0f, 5.0f, 5.0f, 0.0f, 0.0f, -5.0f, 0.0f, 1.0f, 0.0f);
+	cameraRefrence = player->GetCamera();
 }
 
 void HelloGL::Update()
 {
-	glLoadIdentity(); //resets the ideity matrix at the start of every frame
+	glLoadIdentity();
 
 	player->Update();
 
@@ -119,7 +120,23 @@ void HelloGL::Update()
 void HelloGL::Display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);// clears the colour bit buffer, and depth bit buffer
-	
+
+	Vector3 v = { 0.0f,0.0f,0.0f };
+
+	Colour c = { 0.0f,1.0f,0.0f };
+
+	DrawString("Hello World Boy!", &v, &c);
+
+	glPushMatrix();
+	glMatrixMode(GL_MODELVIEW);// switches back to the GL_MODELVIEW matrix so we can load our models
+	glLoadIdentity();
+	gluPerspective(45, 1, 1, 1000); // sets the correct perspective 
+	gluLookAt(cameraRefrence->eye.x, cameraRefrence->eye.y, cameraRefrence->eye.z,
+		cameraRefrence->frount.x + cameraRefrence->eye.x, cameraRefrence->frount.y + cameraRefrence->eye.y, cameraRefrence->frount.z + cameraRefrence->eye.z,
+		cameraRefrence->up.x, cameraRefrence->up.y, cameraRefrence->up.z);
+
+
+
 	// draws the scene objects every fram
 	for (int i = 0; i < 60; i++)
 	{
@@ -127,12 +144,8 @@ void HelloGL::Display()
 	}
 
 	
+	glLoadIdentity();
 
-	Vector3 v = { 0.0f,0.0f,0.0f };
-	
-	Colour c = { 0.0f,1.0f,0.0f };
-
-	DrawString("Hello World Boy!", &v, &c);
 
 	glFlush();// empties all buffers, and preforms all issued commands
 	glutSwapBuffers(); // swaps buffer of current window if double buffered
@@ -140,13 +153,26 @@ void HelloGL::Display()
 
 void HelloGL::DrawString(const char* text, Vector3* position, Colour* colour)
 {
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	int windowWidth = glutGet(GLUT_WINDOW_WIDTH);
+	int windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
+	glOrtho(0, windowWidth, 0, windowHeight, -1, -1);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
 	glDisable(GL_LIGHTING);
-	glPushMatrix();
-	glColor3f(colour->r, colour->g, colour->b);
+
 	glTranslatef(position->x, position->y, position->z);
-	glRasterPos2f(0.0f,0.0f);
+
+	glColor3f(colour->r, colour->g, colour->b);
+	glPushMatrix();
+	glRasterPos2f(-0.9f,0.8f);
 	glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24, (unsigned char*)text);
 	glPopMatrix();
+
 	glEnable(GL_LIGHTING);
 }
 

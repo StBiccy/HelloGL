@@ -49,7 +49,7 @@ void CharacterController::DirectionUpdate()
 void CharacterController::Update()
 {
 	//set camera look at
-	gluLookAt(cam->eye.x, cam->eye.y, cam->eye.z, cam->frount.x + cam->eye.x, cam->frount.y + cam->eye.y, cam->frount.z + cam->eye.z, cam->up.x, cam->up.y, cam->up.z);
+	//gluLookAt(cam->eye.x, cam->eye.y, cam->eye.z, cam->frount.x + cam->eye.x, cam->frount.y + cam->eye.y, cam->frount.z + cam->eye.z, cam->up.x, cam->up.y, cam->up.z);
 
 	//reset velocity
 	velocity.x = 0, velocity.y = 0, velocity.z = 0;
@@ -115,7 +115,7 @@ void CharacterController::PassiveMotion(int x, int y)
 	DirectionUpdate();
 }
 
-Camera CharacterController::GetCamera()
+Camera* CharacterController::GetCamera()
 {
-	return *cam;
+	return cam;
 }

@@ -34,7 +34,7 @@ public:
 
 	void PassiveMotion(int x, int y);// update on mouse movement
 
-	Camera GetCamera();
+	Camera* GetCamera();
 
 	void Update();
 };

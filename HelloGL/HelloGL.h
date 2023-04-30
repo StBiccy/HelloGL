@@ -16,6 +16,7 @@ class HelloGL
 {
 private:
 	CharacterController* player; // represnts the player character
+	Camera* cameraRefrence;
 
 	SceneObjects* objects[60]; // represents all scene objects
 
