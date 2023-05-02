@@ -44,34 +44,39 @@ void HelloGL::InitGL(int argc, char* argv[])
 void HelloGL::InitObjects()
 {
 	// initialise obj mesh
-	OBJMesh* objMesh = OBJLoader::LoadOBJ((char*)"Meshes/world.obj");	
+	OBJMesh* Tree = OBJLoader::LoadOBJ((char*)"Meshes/Tree.obj");
+	OBJMesh* Floor = OBJLoader::LoadOBJ((char*)"Meshes/Floor.obj");
 
 	// initilaise texture2D
-	Texture2D* monkeyTex = new Texture2D();
+	Texture2D* treeTexture = new Texture2D();
+	Texture2D* floorTexture = new Texture2D();
 
 	// initilise bitmap loader
 	BitmapLoader* bitMapImage = new BitmapLoader();
 	// create a raw file from bmp file
-	bitMapImage->LoadBitMap((char*)"Textures/Monke.bmp", (char*)"Textures/Monke.raw");
+	bitMapImage->LoadBitMap((char*)"Textures/Tree.bmp", (char*)"Textures/Tree.raw");
+	bitMapImage->LoadBitMap((char*)"Textures/Floor.bmp", (char*)"Textures/Floor.raw");
 
 	//Load monkey texture
-	monkeyTex->Load((char*)"Textures/Monke.raw", 512, 512);
+	treeTexture->Load((char*)"Textures/Tree.raw", 256, 256);
+	floorTexture->Load((char*)"Textures/Floor.raw", 256, 256);
 
 	// setup objects
-	for (int i = 0; i < 60; i++)
+	for (int i = 0; i < 61; i++)
 	{
-		objects[i] = new Suzanne(objMesh, monkeyTex, 0,0,0/*((rand() % 400) / 10.0f) - 20.0f, 0, -(rand() % 1000) / 10.0f*/);
+		objects[i] = new Suzanne(Tree, treeTexture,((rand() % 2500) / 10.0f) , 0, -(rand() % 2500) / 10.0f);
 	}
 
+	objects[60] = new Suzanne(Floor, floorTexture, 0, 0, 0);
 }
 
 void HelloGL::InitLighting()
 {
 	// setup lightinhg position
 	lightPositon = new Vector4();
-	lightPositon->x = 0.0f;
-	lightPositon->y = 0.0f;
-	lightPositon->z = 1.0f;
+	lightPositon->x = 50.0f;
+	lightPositon->y = 100.0f;
+	lightPositon->z = 50.0f;
 	lightPositon->w = 0.0f;
 
 	// set up lighting data
@@ -103,7 +108,7 @@ void HelloGL::Update()
 	player->Update();
 
 	// updates the scene objects every frame
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 61; i++)
 	{
 		objects[i]->Update();
 	}		
@@ -121,7 +126,7 @@ void HelloGL::Display()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);// clears the colour bit buffer, and depth bit buffer
 	
 	// draws the scene objects every fram
-	for (int i = 0; i < 60; i++)
+	for (int i = 0; i < 61; i++)
 	{
 		objects[i]->Draw();
 	}

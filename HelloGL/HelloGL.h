@@ -17,7 +17,7 @@ class HelloGL
 private:
 	CharacterController* player; // represnts the player character
 
-	SceneObjects* objects[60]; // represents all scene objects
+	SceneObjects* objects[61]; // represents all scene objects
 
 	Vector4* lightPositon; // represents the lighting position
 	Lighting* lightData; // represnets the light data
