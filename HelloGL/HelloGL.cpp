@@ -1,4 +1,5 @@
 #include "HelloGL.h"
+#include <string>
 
 HelloGL::HelloGL(int argc, char* argv[])
 {
@@ -103,7 +104,9 @@ void HelloGL::InitCharacter()
 
 void HelloGL::Update()
 {
-	glLoadIdentity(); //resets the ideity matrix at the start of every frame
+	glMatrixMode(GL_PROJECTION);// switch to the GL_PROJECTION matrix mode for the following methods
+	glLoadIdentity();// replaces current matix with identity matrix
+	gluPerspective(45, 1, 1, 1000); // sets the correct perspective 
 
 	player->Update();
 
@@ -125,19 +128,27 @@ void HelloGL::Display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);// clears the colour bit buffer, and depth bit buffer
 	
+
 	// draws the scene objects every fram
 	for (int i = 0; i < 61; i++)
 	{
 		objects[i]->Draw();
 	}
 
-	
+	// Draw string for ui bellow these \/
+	 
+	glMatrixMode(GL_PROJECTION);// switch to the GL_PROJECTION matrix mode for the following methods
+	glLoadIdentity();// replaces current matix with identity matrix
+	glOrtho(0, 800, 800, 0, 0, 1.0f);
 
-	Vector3 v = { 0.0f,0.0f,0.0f };
+	Vector3 v = { -0.1f,0.1f,-0.1f };
 	
 	Colour c = { 0.0f,1.0f,0.0f };
 
-	DrawString("Hello World Boy!", &v, &c);
+	std::string text = "X " + std::to_string(player->GetPosition().x);
+	DrawString(text.c_str(), &v, &c);
+
+
 
 	glFlush();// empties all buffers, and preforms all issued commands
 	glutSwapBuffers(); // swaps buffer of current window if double buffered
@@ -145,11 +156,13 @@ void HelloGL::Display()
 
 void HelloGL::DrawString(const char* text, Vector3* position, Colour* colour)
 {
+
+
 	glDisable(GL_LIGHTING);
 	glPushMatrix();
 	glColor3f(colour->r, colour->g, colour->b);
-	glTranslatef(position->x, position->y, position->z);
-	glRasterPos2f(0.0f,0.0f);
+	//glTranslatef(position->x, position->y, position->z);
+	glRasterPos2f(10,30);
 	glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24, (unsigned char*)text);
 	glPopMatrix();
 	glEnable(GL_LIGHTING);
