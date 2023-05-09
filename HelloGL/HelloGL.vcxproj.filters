@@ -24,16 +24,10 @@
     <ClInclude Include="Structures.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MeshLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SceneObjects.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Pyramid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Texture2D.h">
@@ -43,9 +37,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="OBJLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Suzanne.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CharacterController.h">
@@ -65,16 +56,10 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Cube.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MeshLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SceneObjects.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Pyramid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Texture2D.cpp">
@@ -84,9 +69,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="OBJLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Suzanne.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CharacterController.cpp">

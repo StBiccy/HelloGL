@@ -1,9 +1,7 @@
 #pragma once
 
 #include "GLUTCallbacks.h"
-#include "Cube.h"
-#include "Pyramid.h"
-#include "Suzanne.h"
+#include "SceneObjects.h"
 #include "Structures.h"
 #include "MeshLoader.h"
 #include "BitmapLoader.h"
@@ -17,7 +15,10 @@ class HelloGL
 private:
 	CharacterController* player; // represnts the player character
 
-	SceneObjects* objects[61]; // represents all scene objects
+	SceneObjects* trees[60]; // represents all scene objects
+	SceneObjects* floor;
+	SceneObjects* stand;
+	SceneObjects* suzanne;
 
 	Vector4* lightPositon; // represents the lighting position
 	Lighting* lightData; // represnets the light data

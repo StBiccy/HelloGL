@@ -47,28 +47,43 @@ void HelloGL::InitObjects()
 	// initialise obj mesh
 	OBJMesh* Tree = OBJLoader::LoadOBJ((char*)"Meshes/Tree.obj");
 	OBJMesh* Floor = OBJLoader::LoadOBJ((char*)"Meshes/Floor.obj");
+	OBJMesh* Suzanne = OBJLoader::LoadOBJ((char*)"Meshes/suzan.obj");
+	OBJMesh* Stand = OBJLoader::LoadOBJ((char*)"Meshes/Stand.obj");
 
 	// initilaise texture2D
 	Texture2D* treeTexture = new Texture2D();
 	Texture2D* floorTexture = new Texture2D();
+	Texture2D* suzanneTexture = new Texture2D();
+	Texture2D* standTexture = new Texture2D();
 
 	// initilise bitmap loader
 	BitmapLoader* bitMapImage = new BitmapLoader();
 	// create a raw file from bmp file
 	bitMapImage->LoadBitMap((char*)"Textures/Tree.bmp", (char*)"Textures/Tree.raw");
 	bitMapImage->LoadBitMap((char*)"Textures/Floor.bmp", (char*)"Textures/Floor.raw");
-
+	bitMapImage->LoadBitMap((char*)"Textures/Monke.bmp", (char*)"Textures/Monke.raw");
+	bitMapImage->LoadBitMap((char*)"Textures/Stand.bmp", (char*)"Textures/Stand.raw");
 	//Load monkey texture
 	treeTexture->Load((char*)"Textures/Tree.raw", 256, 256);
 	floorTexture->Load((char*)"Textures/Floor.raw", 256, 256);
+	suzanneTexture->Load((char*)"Textures/Monke.raw", 512, 512);
+	standTexture->Load((char*)"Textures/Stand.raw", 1024, 1024);
+
 
 	// setup objects
-	for (int i = 0; i < 61; i++)
+	for (int i = 0; i < 60; i++)
 	{
-		objects[i] = new Suzanne(Tree, treeTexture,((rand() % 2500) / 10.0f) , 0, -(rand() % 2500) / 10.0f);
+		trees[i] = new SceneObjects(Tree, treeTexture, { ((rand() % 2500) / 10.0f), 0, -(rand() % 2500) / 10.0f }, {0,0,0},{1,1,1});
 	}
 
-	objects[60] = new Suzanne(Floor, floorTexture, 0, 0, 0);
+	stand = new SceneObjects(Stand, standTexture, { 130,0,-130 }, { 0,0,0 }, { 3,3,3 });
+	suzanne = new SceneObjects(Suzanne, suzanneTexture, { 0,4,0 }, { 0,0,0 }, { 1,1,1 });
+
+	stand->AddChild(suzanne);
+
+	floor = new SceneObjects(Floor, floorTexture, { 0,0,0 }, { 0,0,0 }, {1,1,1});
+
+	delete bitMapImage;
 }
 
 void HelloGL::InitLighting()
@@ -110,11 +125,7 @@ void HelloGL::Update()
 
 	player->Update();
 
-	// updates the scene objects every frame
-	for (int i = 0; i < 61; i++)
-	{
-		objects[i]->Update();
-	}		
+	suzanne->rotation.y += 1;
 
 	//sets the light up every frame
 	glLightfv(GL_LIGHT0, GL_AMBIENT, &(lightData->Ambient.x));
@@ -130,10 +141,18 @@ void HelloGL::Display()
 	
 
 	// draws the scene objects every fram
-	for (int i = 0; i < 61; i++)
+	for (int i = 0; i < 60; i++)
 	{
-		objects[i]->Draw();
+		trees[i]->Draw();
 	}
+
+	floor->Draw();
+
+	stand->Draw();
+
+	
+
+
 
 	// Draw string for ui bellow these \/
 	 
@@ -216,7 +235,8 @@ void HelloGL::KeyboardDown(unsigned char key, int x, int y)
 HelloGL::~HelloGL(void)
 {
 	delete player;
-	delete objects;
+	delete trees;
+	delete floor;
 	delete lightData;
 	delete lightPositon;
 }

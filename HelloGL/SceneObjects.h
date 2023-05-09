@@ -9,13 +9,27 @@
 class SceneObjects
 {
 protected:
-	Mesh* _mesh; // represents mesh to draw
-	OBJMesh* _objMesh; // represents obj mesh to draw
-	Texture2D* _texture; // represents texture data
+	Mesh* mesh; // represents mesh to draw
+	OBJMesh* objMesh; // represents obj mesh to draw
+	Texture2D* texture; // represents texture data
 public:
-	SceneObjects(Mesh* mesh, Texture2D* texture); // load for default mesh
+	Vector3 position;
+	Vector3 rotation;
+	Vector3 scale;
 
-	SceneObjects(OBJMesh* mesh, Texture2D* texture); //load for obj mesh
+	std::vector<SceneObjects*> children;
+	SceneObjects* parent;
+
+
+	SceneObjects(Mesh* mesh, Texture2D* texture, Vector3 position, Vector3 rotation, Vector3 scale, SceneObjects* parent = nullptr); // load for default mesh
+
+	SceneObjects(OBJMesh* mesh, Texture2D* texture, Vector3 position, Vector3 rotation, Vector3 scale, SceneObjects* parent = nullptr); //load for obj mesh
+
+	void AddChild(SceneObjects* child) 
+	{ 
+		children.push_back(child); 
+		child->parent = this;
+	}
 
 	virtual ~SceneObjects();
 
