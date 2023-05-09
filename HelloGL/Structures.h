@@ -1,12 +1,12 @@
 #pragma once
 #include <vector>
-
-// represents a point in the 3D space
-struct Vector3
+#include "Vector3.h"
+#include "mat4.h"
+// represents a 2D vector
+struct Vector2
 {
 	float x;
 	float y;
-	float z;
 };
 
 // represents a 4D vector
@@ -18,11 +18,20 @@ struct Vector4
 	float w;
 };
 
+struct Transform
+{
+	Vector3 position = { 0.0f,0.0f,0.0f };
+	Vector3 eularRotation = { 0.0f,0.0f,0.0f };
+	Vector3 scale = { 0.0f,0.0f,0.0f };
+
+	mat4 modelMatrix = modelMatrix.identity();
+};
+
 //represents a camera
 struct Camera
 {
 	Vector3 eye;// where the eye/postion of the camera is placed
-	Vector3 frount; // represents the direction the camera is looking
+	Vector3 front; // represents the direction the camera is looking
 	Vector3 up; //represents the rotation of the camera/where the upwards direction of it is
 };
 

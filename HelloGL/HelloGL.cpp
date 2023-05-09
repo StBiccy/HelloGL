@@ -1,5 +1,7 @@
 #include "HelloGL.h"
+#include <sstream>
 #include <string>
+#include <iomanip>
 
 HelloGL::HelloGL(int argc, char* argv[])
 {
@@ -99,7 +101,7 @@ void HelloGL::InitLighting()
 void HelloGL::InitCharacter()
 {
 	//initalise the player character
-	player = new CharacterController(0.0f, 5.0f, 5.0f, 0.0f, 0.0f, -5.0f, 0.0f, 1.0f, 0.0f);
+	player = new CharacterController(Vector3{0,5,0},Vector3{0,0,-5},Vector3{0,1,0});
 }
 
 void HelloGL::Update()
@@ -128,41 +130,79 @@ void HelloGL::Display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);// clears the colour bit buffer, and depth bit buffer
 	
-
 	// draws the scene objects every fram
 	for (int i = 0; i < 61; i++)
 	{
 		objects[i]->Draw();
 	}
 
-	// Draw string for ui bellow these \/
-	 
-	glMatrixMode(GL_PROJECTION);// switch to the GL_PROJECTION matrix mode for the following methods
+	// call draws for ui elements bellow these \/
+
 	glLoadIdentity();// replaces current matix with identity matrix
 	glOrtho(0, 800, 800, 0, 0, 1.0f);
 
-	Vector3 v = { -0.1f,0.1f,-0.1f };
-	
+#pragma region Text stuff
+	Vector2 v = { 10.0f,30.0f };
 	Colour c = { 0.0f,1.0f,0.0f };
+	Vector3 position = player->GetPosition();
+	std::ostringstream stream;
 
-	std::string text = "X " + std::to_string(player->GetPosition().x);
-	DrawString(text.c_str(), &v, &c);
+	stream << "X: ";
+	stream << std::fixed;
+	stream << std::setprecision(2) ;
+	stream << position.x;
+	stream.width(5);
 
+	stream << "Y: ";
+	stream << std::fixed;
+	stream << std::setprecision(2);
+	stream << position.y;
+	stream.width(5);
 
+	stream << "Z: ";
+	stream << std::fixed;
+	stream << std::setprecision(2);
+	stream << position.z;
+
+	DrawString(stream.str().c_str(), &v, &c);
+
+	int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
+
+	microSec += (timeSinceStart - oldTime);
+	oldTime = timeSinceStart;
+	if(microSec >= 1000)
+	{
+		microSec -= 1000;
+		++sec;
+		if (sec >= 60)
+		{
+			sec -= 60;
+			++min;
+			if (min >= 60)
+			{
+				min -= 60;
+				++hour;
+			}
+		}
+	}
+
+	std::string string = "Time in scene: " + std::to_string(hour) + " : " + std::to_string(min) + " : " + std::to_string(sec) + " : " + std::to_string(microSec);
+
+	v = { 10,65 };
+
+	DrawString(string.c_str(), &v, &c);
+#pragma endregion
 
 	glFlush();// empties all buffers, and preforms all issued commands
 	glutSwapBuffers(); // swaps buffer of current window if double buffered
 }
 
-void HelloGL::DrawString(const char* text, Vector3* position, Colour* colour)
+void HelloGL::DrawString(const char* text, Vector2* position, Colour* colour)
 {
-
-
 	glDisable(GL_LIGHTING);
 	glPushMatrix();
 	glColor3f(colour->r, colour->g, colour->b);
-	//glTranslatef(position->x, position->y, position->z);
-	glRasterPos2f(10,30);
+	glRasterPos2f(position->x,position->y);
 	glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24, (unsigned char*)text);
 	glPopMatrix();
 	glEnable(GL_LIGHTING);

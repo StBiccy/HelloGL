@@ -27,7 +27,7 @@ public:
 	bool sDown;
 	bool dDown;
 
-	CharacterController(float posX, float posY, float posZ, float centerX, float centerY, float centerZ, float upX, float upY, float upZ);
+	CharacterController(Vector3 pos, Vector3 front, Vector3 up);
 	~CharacterController();
 
 	void DirectionUpdate();//update camera direction

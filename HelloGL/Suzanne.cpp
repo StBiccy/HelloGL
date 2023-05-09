@@ -1,4 +1,5 @@
 #include "Suzanne.h"
+#
 
 Suzanne::Suzanne(OBJMesh* mesh, Texture2D* texture, GLfloat x, GLfloat y, GLfloat z) : SceneObjects(mesh, texture)
 {

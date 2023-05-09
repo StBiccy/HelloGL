@@ -15,6 +15,13 @@
 class HelloGL
 {
 private:
+
+	int oldTime=0;
+	unsigned short microSec = 0;
+	byte min = 0;
+	byte sec = 0;
+	int hour = 0;
+
 	CharacterController* player; // represnts the player character
 
 	SceneObjects* objects[61]; // represents all scene objects
@@ -38,6 +45,6 @@ public:
 	void KeyboardUp(unsigned char key, int x, int y); // update on key release
 	void PassiveMotion(int x, int y); // update on mouse motiion
 
-	void DrawString(const char* text, Vector3* position, Colour* colour);//call for drawing the string;
+	void DrawString(const char* text, Vector2* position, Colour* colour);//call for drawing the string;
 };
 
