@@ -26,7 +26,6 @@ void HelloGL::InitGL(int argc, char* argv[])
 	glutKeyboardUpFunc(GLUTCallbacks::KeyboardUp);// setup keyboard inputs callbacks
 	glutPassiveMotionFunc(GLUTCallbacks::PassiveMotion);// setup for mouse position callbacks
 	glutSetCursor(GLUT_CURSOR_NONE);// hides the Cursor 
-	
 
 	glMatrixMode(GL_PROJECTION);// switch to the GL_PROJECTION matrix mode for the following methods
 	glLoadIdentity();// replaces current matix with identity matrix
@@ -49,12 +48,14 @@ void HelloGL::InitObjects()
 	OBJMesh* Floor = OBJLoader::LoadOBJ((char*)"Meshes/Floor.obj");
 	OBJMesh* Suzanne = OBJLoader::LoadOBJ((char*)"Meshes/suzan.obj");
 	OBJMesh* Stand = OBJLoader::LoadOBJ((char*)"Meshes/Stand.obj");
+	OBJMesh* SkyBox = OBJLoader::LoadOBJ((char*)"Meshes/SkyBox.obj");
 
 	// initilaise texture2D
 	Texture2D* treeTexture = new Texture2D();
 	Texture2D* floorTexture = new Texture2D();
 	Texture2D* suzanneTexture = new Texture2D();
 	Texture2D* standTexture = new Texture2D();
+	Texture2D* SkyBoxTexture = new Texture2D();
 
 	// initilise bitmap loader
 	BitmapLoader* bitMapImage = new BitmapLoader();
@@ -63,11 +64,14 @@ void HelloGL::InitObjects()
 	bitMapImage->LoadBitMap((char*)"Textures/Floor.bmp", (char*)"Textures/Floor.raw");
 	bitMapImage->LoadBitMap((char*)"Textures/Monke.bmp", (char*)"Textures/Monke.raw");
 	bitMapImage->LoadBitMap((char*)"Textures/Stand.bmp", (char*)"Textures/Stand.raw");
+	bitMapImage->LoadBitMap((char*)"Textures/SkyBox.bmp", (char*)"Textures/SkyBox.raw");
+
 	//Load monkey texture
 	treeTexture->Load((char*)"Textures/Tree.raw", 256, 256);
 	floorTexture->Load((char*)"Textures/Floor.raw", 256, 256);
 	suzanneTexture->Load((char*)"Textures/Monke.raw", 512, 512);
 	standTexture->Load((char*)"Textures/Stand.raw", 1024, 1024);
+	SkyBoxTexture->Load((char*)"Textures/SkyBox.raw", 1024, 1024);
 
 
 	// setup objects
@@ -81,7 +85,10 @@ void HelloGL::InitObjects()
 
 	stand->AddChild(suzanne);
 
-	floor = new SceneObjects(Floor, floorTexture, { 0,0,0 }, { 0,0,0 }, {1,1,1});
+	floor = new SceneObjects(Floor, floorTexture, { 0,0,0 }, { 0,0,0 }, { 1,1,1 });
+	skyBox = new SceneObjects(SkyBox, SkyBoxTexture, { 0,0,0 }, { 0,0,0 }, {1,1,1});
+	
+
 
 	delete bitMapImage;
 }
@@ -127,6 +134,8 @@ void HelloGL::Update()
 
 	suzanne->rotation.y += 1;
 
+	skyBox->position = player->GetPosition();
+
 	//sets the light up every frame
 	glLightfv(GL_LIGHT0, GL_AMBIENT, &(lightData->Ambient.x));
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, &(lightData->Diffuse.x));
@@ -149,11 +158,12 @@ void HelloGL::Display()
 	floor->Draw();
 
 	stand->Draw();
+	glDisable(GL_LIGHTING);
+
+	skyBox->Draw();
+	glEnable(GL_LIGHTING);
 
 	
-
-
-
 	// Draw string for ui bellow these \/
 	 
 	glMatrixMode(GL_PROJECTION);// switch to the GL_PROJECTION matrix mode for the following methods
@@ -163,7 +173,6 @@ void HelloGL::Display()
 	Vector3 v = { -0.1f,0.1f,-0.1f };
 	
 	Colour c = { 0.0f,1.0f,0.0f };
-
 	std::string text = "X " + std::to_string(player->GetPosition().x);
 	DrawString(text.c_str(), &v, &c);
 
@@ -175,16 +184,14 @@ void HelloGL::Display()
 
 void HelloGL::DrawString(const char* text, Vector3* position, Colour* colour)
 {
-
-
 	glDisable(GL_LIGHTING);
-	glPushMatrix();
+
 	glColor3f(colour->r, colour->g, colour->b);
-	//glTranslatef(position->x, position->y, position->z);
 	glRasterPos2f(10,30);
 	glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24, (unsigned char*)text);
-	glPopMatrix();
+
 	glEnable(GL_LIGHTING);
+	glColor3f(1, 1, 1);
 }
 
 void HelloGL::KeyboardUp(unsigned char key, int x, int y)

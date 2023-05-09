@@ -19,6 +19,7 @@ private:
 	SceneObjects* floor;
 	SceneObjects* stand;
 	SceneObjects* suzanne;
+	SceneObjects* skyBox;
 
 	Vector4* lightPositon; // represents the lighting position
 	Lighting* lightData; // represnets the light data
