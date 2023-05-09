@@ -60,6 +60,7 @@ void SceneObjects::Draw()
 			glVertex3fv(&objMesh->vertices[objMesh->indices[i].vertexIndex - 1].x);
 		}
 		glEnd();		
+		glBindTexture(GL_TEXTURE_2D, 0); // binds texture to mesh
 	}
 
 	for (SceneObjects* child : children)
