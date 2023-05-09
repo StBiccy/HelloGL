@@ -1,7 +1,7 @@
 #include "SceneObjects.h"
 
 // setup mesh
-SceneObjects::SceneObjects(Mesh* mesh, Texture2D* texture, Vector3 position, Vector3 rotation, Vector3 scale, SceneObjects* parent)
+SceneObjects::SceneObjects(Mesh* mesh, Texture2D* texture, Vector3 position, Vector3 rotation, Vector3 scale, Material* mat,SceneObjects* parent)
 {
 	objMesh = nullptr;	this->parent = parent;
 	this->position = position;
@@ -9,10 +9,12 @@ SceneObjects::SceneObjects(Mesh* mesh, Texture2D* texture, Vector3 position, Vec
 	this->scale = scale;
 	this->mesh = mesh;
 	this->texture = texture;
+
+	material = mat;
 }
 
 // setup obj mesh
-SceneObjects::SceneObjects(OBJMesh* mesh, Texture2D* texture, Vector3 position, Vector3 rotation, Vector3 scale, SceneObjects* parent)
+SceneObjects::SceneObjects(OBJMesh* mesh, Texture2D* texture, Vector3 position, Vector3 rotation, Vector3 scale, Material* mat, SceneObjects* parent)
 {
 	this->parent = parent;
 	this->position = position;
@@ -21,6 +23,8 @@ SceneObjects::SceneObjects(OBJMesh* mesh, Texture2D* texture, Vector3 position, 
 	this->mesh = nullptr;
 	objMesh = mesh;
 	this->texture = texture;
+
+	material = mat;
 }
 
 SceneObjects::~SceneObjects(){}
@@ -37,6 +41,11 @@ void SceneObjects::Draw()
 	glRotatef(rotation.z, 0.0f, 0.0f, 1.0f);
 
 	glScalef(scale.x, scale.y, scale.z);
+
+	glMaterialfv(GL_FRONT, GL_AMBIENT, &(material->Ambient.x));
+	glMaterialfv(GL_FRONT, GL_SPECULAR, &(material->Specular.x));
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, &(material->Diffuse.x));
+	glMaterialf(GL_FRONT, GL_SHININESS, material->Shininess);
 
 	if (!objMesh->vertices.empty() && !objMesh->normals.empty() && !objMesh->texCoords.empty() && !objMesh->indices.empty())
 	{

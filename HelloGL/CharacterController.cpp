@@ -43,13 +43,13 @@ void CharacterController::DirectionUpdate()
 	camDirection.z = sinf(Mathf::Radian(yaw)) * cosf(Mathf::Radian(pitch));
 	
 	// set the direction of the camera to eaqual the noremal of the direction found
-	cam->frount = Mathf::Normalise(camDirection);
+	cam->front = Mathf::Normalise(camDirection);
 }
 
 void CharacterController::Update()
 {
 	//set camera look at
-	gluLookAt(cam->eye.x, cam->eye.y, cam->eye.z, cam->frount.x + cam->eye.x, cam->frount.y + cam->eye.y, cam->frount.z + cam->eye.z, cam->up.x, cam->up.y, cam->up.z);
+	gluLookAt(cam->eye.x, cam->eye.y, cam->eye.z, cam->front.x + cam->eye.x, cam->front.y + cam->eye.y, cam->front.z + cam->eye.z, cam->up.x, cam->up.y, cam->up.z);
 
 	//reset velocity
 	velocity.x = 0, velocity.y = 0, velocity.z = 0;
@@ -60,26 +60,26 @@ void CharacterController::Update()
 	if (wDown == true)
 	{
 		// moves in the direction the camera is facing
-		velocity.x += cam->frount.x;
-		velocity.z += cam->frount.z;
+		velocity.x += cam->front.x;
+		velocity.z += cam->front.z;
 	}
 	if (sDown == true)
 	{
 		// movies the opposite way the camera is facing
-		velocity.x -= cam->frount.x;
-		velocity.z -= cam->frount.z;
+		velocity.x -= cam->front.x;
+		velocity.z -= cam->front.z;
 	}
 	if (aDown == true)
 	{
 		// moves to the right of the direction the camera is facing
-		velocity.x += cam->frount.z;
-		velocity.z -= cam->frount.x;
+		velocity.x += cam->front.z;
+		velocity.z -= cam->front.x;
 	}
 	if (dDown == true)
 	{
 		// moves to the left of the direction the camera is facing
-		velocity.x -= cam->frount.z;
-		velocity.z += cam->frount.x;
+		velocity.x -= cam->front.z;
+		velocity.z += cam->front.x;
 	}
 
 	// if the velocity is not 0 then normalise it so that the character speed doesn't increse when moving diagonally;

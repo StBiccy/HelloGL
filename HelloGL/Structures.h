@@ -1,6 +1,12 @@
 #pragma once
 #include <vector>
 
+struct Vector2
+{
+	float x;
+	float y;
+};
+
 // represents a point in the 3D space
 struct Vector3
 {
@@ -22,7 +28,7 @@ struct Vector4
 struct Camera
 {
 	Vector3 eye;// where the eye/postion of the camera is placed
-	Vector3 frount; // represents the direction the camera is looking
+	Vector3 front; // represents the direction the camera is looking
 	Vector3 up; //represents the rotation of the camera/where the upwards direction of it is
 };
 

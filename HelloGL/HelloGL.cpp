@@ -1,5 +1,7 @@
 #include "HelloGL.h"
 #include <string>
+#include <sstream>
+#include <iomanip>
 
 HelloGL::HelloGL(int argc, char* argv[])
 {
@@ -66,27 +68,34 @@ void HelloGL::InitObjects()
 	bitMapImage->LoadBitMap((char*)"Textures/Stand.bmp", (char*)"Textures/Stand.raw");
 	bitMapImage->LoadBitMap((char*)"Textures/SkyBox.bmp", (char*)"Textures/SkyBox.raw");
 
-	//Load monkey texture
+	//Load texture
 	treeTexture->Load((char*)"Textures/Tree.raw", 256, 256);
 	floorTexture->Load((char*)"Textures/Floor.raw", 256, 256);
 	suzanneTexture->Load((char*)"Textures/Monke.raw", 512, 512);
 	standTexture->Load((char*)"Textures/Stand.raw", 1024, 1024);
 	SkyBoxTexture->Load((char*)"Textures/SkyBox.raw", 1024, 1024);
 
+	//Load materals
+	Material* defaultMat = new Material();
+	defaultMat->Ambient = { 0.5f,0.5f,0.5f,0.5f };
+	defaultMat->Diffuse = { 0.5f,0.5f,0.5f,0.5f };
+	defaultMat->Specular = { 1.0f,0.0f,0.0f,0.0f };
+	defaultMat->Shininess = 0.0f;
+
 
 	// setup objects
 	for (int i = 0; i < 60; i++)
 	{
-		trees[i] = new SceneObjects(Tree, treeTexture, { ((rand() % 2500) / 10.0f), 0, -(rand() % 2500) / 10.0f }, {0,0,0},{1,1,1});
+		trees[i] = new SceneObjects(Tree, treeTexture, { ((rand() % 2500) / 10.0f), 0, -(rand() % 2500) / 10.0f }, {0,0,0},{1,1,1},defaultMat);
 	}
 
-	stand = new SceneObjects(Stand, standTexture, { 130,0,-130 }, { 0,0,0 }, { 3,3,3 });
-	suzanne = new SceneObjects(Suzanne, suzanneTexture, { 0,4,0 }, { 0,0,0 }, { 1,1,1 });
+	stand = new SceneObjects(Stand, standTexture, { 130,0,-130 }, { 0,0,0 }, { 3,3,3 }, defaultMat);
+	suzanne = new SceneObjects(Suzanne, suzanneTexture, { 0,4,0 }, { 0,0,0 }, { 1,1,1 }, defaultMat);
 
 	stand->AddChild(suzanne);
 
-	floor = new SceneObjects(Floor, floorTexture, { 0,0,0 }, { 0,0,0 }, { 1,1,1 });
-	skyBox = new SceneObjects(SkyBox, SkyBoxTexture, { 0,0,0 }, { 0,0,0 }, {1,1,1});
+	floor = new SceneObjects(Floor, floorTexture, { 0,0,0 }, { 0,0,0 }, { 1,1,1 }, defaultMat);
+	skyBox = new SceneObjects(SkyBox, SkyBoxTexture, { 0,0,0 }, { 0,0,0 }, {1,1,1}, defaultMat);
 	
 
 
@@ -160,38 +169,78 @@ void HelloGL::Display()
 	stand->Draw();
 	glDisable(GL_LIGHTING);
 
+	glColor3f(1, 1, 1);
 	skyBox->Draw();
 	glEnable(GL_LIGHTING);
-
 	
 	// Draw string for ui bellow these \/
-	 
-	glMatrixMode(GL_PROJECTION);// switch to the GL_PROJECTION matrix mode for the following methods
 	glLoadIdentity();// replaces current matix with identity matrix
 	glOrtho(0, 800, 800, 0, 0, 1.0f);
 
-	Vector3 v = { -0.1f,0.1f,-0.1f };
-	
+#pragma region Text stuff
+	Vector2 v = { 10.0f,30.0f };
 	Colour c = { 0.0f,1.0f,0.0f };
-	std::string text = "X " + std::to_string(player->GetPosition().x);
-	DrawString(text.c_str(), &v, &c);
+	Vector3 position = player->GetPosition();
+	std::ostringstream stream;
 
+	stream << "X: ";
+	stream << std::fixed;
+	stream << std::setprecision(2);
+	stream << position.x;
+	stream.width(5);
 
+	stream << "Y: ";
+	stream << std::fixed;
+	stream << std::setprecision(2);
+	stream << position.y;
+	stream.width(5);
 
+	stream << "Z: ";
+	stream << std::fixed;
+	stream << std::setprecision(2);
+	stream << position.z;
+
+	DrawString(stream.str().c_str(), &v, &c);
+
+	int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
+
+	microSec += (timeSinceStart - oldTime);
+	oldTime = timeSinceStart;
+	if (microSec >= 1000)
+	{
+		microSec -= 1000;
+		++sec;
+		if (sec >= 60)
+		{
+			sec -= 60;
+			++min;
+			if (min >= 60)
+			{
+				min -= 60;
+				++hour;
+			}
+		}
+	}
+
+	std::string string = "Time in scene: " + std::to_string(hour) + " : " + std::to_string(min) + " : " + std::to_string(sec) + " : " + std::to_string(microSec);
+
+	v = { 10,65 };
+
+	DrawString(string.c_str(), &v, &c);
+#pragma endregion
 	glFlush();// empties all buffers, and preforms all issued commands
 	glutSwapBuffers(); // swaps buffer of current window if double buffered
 }
 
-void HelloGL::DrawString(const char* text, Vector3* position, Colour* colour)
+void HelloGL::DrawString(const char* text, Vector2* position, Colour* colour)
 {
 	glDisable(GL_LIGHTING);
-
+	glPushMatrix();
 	glColor3f(colour->r, colour->g, colour->b);
-	glRasterPos2f(10,30);
+	glRasterPos2f(position->x, position->y);
 	glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24, (unsigned char*)text);
-
+	glPopMatrix();
 	glEnable(GL_LIGHTING);
-	glColor3f(1, 1, 1);
 }
 
 void HelloGL::KeyboardUp(unsigned char key, int x, int y)

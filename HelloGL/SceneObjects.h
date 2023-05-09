@@ -17,13 +17,15 @@ public:
 	Vector3 rotation;
 	Vector3 scale;
 
+	Material* material;
+
 	std::vector<SceneObjects*> children;
 	SceneObjects* parent;
 
 
-	SceneObjects(Mesh* mesh, Texture2D* texture, Vector3 position, Vector3 rotation, Vector3 scale, SceneObjects* parent = nullptr); // load for default mesh
+	SceneObjects(Mesh* mesh, Texture2D* texture, Vector3 position, Vector3 rotation, Vector3 scale, Material* mat, SceneObjects* parent = nullptr); // load for default mesh
 
-	SceneObjects(OBJMesh* mesh, Texture2D* texture, Vector3 position, Vector3 rotation, Vector3 scale, SceneObjects* parent = nullptr); //load for obj mesh
+	SceneObjects(OBJMesh* mesh, Texture2D* texture, Vector3 position, Vector3 rotation, Vector3 scale, Material* mat, SceneObjects* parent = nullptr); //load for obj mesh
 
 	void AddChild(SceneObjects* child) 
 	{ 
