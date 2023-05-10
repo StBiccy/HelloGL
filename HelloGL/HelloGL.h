@@ -27,6 +27,10 @@ private:
 	SceneObjects* suzanne;
 	SceneObjects* skyBox;
 
+	Material* defaultMaterial;
+	Material* treeMaterial;
+	Material* monkeMaterial;
+
 	Vector4* lightPositon; // represents the lighting position
 	Lighting* lightData; // represnets the light data
 

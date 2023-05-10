@@ -76,26 +76,37 @@ void HelloGL::InitObjects()
 	SkyBoxTexture->Load((char*)"Textures/SkyBox.raw", 1024, 1024);
 
 	//Load materals
-	Material* defaultMat = new Material();
-	defaultMat->Ambient = { 0.5f,0.5f,0.5f,0.5f };
-	defaultMat->Diffuse = { 0.5f,0.5f,0.5f,0.5f };
-	defaultMat->Specular = { 1.0f,0.0f,0.0f,0.0f };
-	defaultMat->Shininess = 0.0f;
+	defaultMaterial = new Material();
+	defaultMaterial->Ambient = { 0.5f,0.5f,0.5f,0.5f };
+	defaultMaterial->Diffuse = { 1.0f,1.0f,1.0f,1.0f };
+	defaultMaterial->Specular = { 0.0f,0.0f,0.0f,0.0f };
+	defaultMaterial->Shininess = 0.0f;
 
+	treeMaterial = new Material();
+	treeMaterial->Ambient = { 0.5f,0.5f,0.5f,0.5f };
+	treeMaterial->Diffuse = { 1.0f,1.0f,1.0f,1.0f };
+	treeMaterial->Specular = { 0.8f,0.0f,0.0f,0.0f };
+	treeMaterial->Shininess = 0.0f;
+
+	monkeMaterial = new Material();
+	monkeMaterial->Ambient = { 1.0f,1.0f,1.0f,0.5f };
+	monkeMaterial->Diffuse = { 1.0f,1.0f,1.0f,1.0f };
+	monkeMaterial->Specular = { 0.0f,3.0f,7.0f,0.0f };
+	monkeMaterial->Shininess = 0.0f;
 
 	// setup objects
 	for (int i = 0; i < 60; i++)
 	{
-		trees[i] = new SceneObjects(Tree, treeTexture, { ((rand() % 2500) / 10.0f), 0, -(rand() % 2500) / 10.0f }, {0,0,0},{1,1,1},defaultMat);
+		trees[i] = new SceneObjects(Tree, treeTexture, { ((rand() % 2500) / 10.0f), 0, -(rand() % 2500) / 10.0f }, {0,0,0},{1,1,1}, treeMaterial);
 	}
 
-	stand = new SceneObjects(Stand, standTexture, { 130,0,-130 }, { 0,0,0 }, { 3,3,3 }, defaultMat);
-	suzanne = new SceneObjects(Suzanne, suzanneTexture, { 0,4,0 }, { 0,0,0 }, { 1,1,1 }, defaultMat);
+	stand = new SceneObjects(Stand, standTexture, { 130,0,-130 }, { 0,0,0 }, { 3,3,3 }, defaultMaterial);
+	suzanne = new SceneObjects(Suzanne, suzanneTexture, { 0,4,0 }, { 0,0,0 }, { 1,1,1 }, monkeMaterial);
 
 	stand->AddChild(suzanne);
 
-	floor = new SceneObjects(Floor, floorTexture, { 0,0,0 }, { 0,0,0 }, { 1,1,1 }, defaultMat);
-	skyBox = new SceneObjects(SkyBox, SkyBoxTexture, { 0,0,0 }, { 0,0,0 }, {1,1,1}, defaultMat);
+	floor = new SceneObjects(Floor, floorTexture, { 0,0,0 }, { 0,0,0 }, { 1,1,1 }, defaultMaterial);
+	skyBox = new SceneObjects(SkyBox, SkyBoxTexture, { 0,0,0 }, { 0,0,0 }, {1,1,1}, defaultMaterial);
 	
 
 
@@ -295,6 +306,9 @@ HelloGL::~HelloGL(void)
 	delete floor;
 	delete lightData;
 	delete lightPositon;
+	delete defaultMaterial;
+	delete treeMaterial;
+	delete monkeMaterial;
 }
 
 void HelloGL::PassiveMotion(int x, int y)
