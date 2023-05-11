@@ -1,4 +1,14 @@
-﻿  HelloGL.cpp
-C:\Users\a018366m.STUDENT.000\Documents\GitHub\HelloGL\HelloGL\HelloGL.cpp(305,14): warning C4156: deletion of an array expression without using the array form of 'delete'; array form substituted
-C:\Users\a018366m.STUDENT.000\Documents\GitHub\HelloGL\HelloGL\HelloGL.cpp(305,14): warning C4154: deletion of an array expression; conversion to pointer supplied
-  HelloGL.vcxproj -> C:\Users\a018366m.STUDENT.000\Documents\GitHub\HelloGL\Debug\HelloGL.exe
+﻿  CharacterController.cpp
+  GLUTCallbacks.cpp
+  HelloGL.cpp
+C:\Users\Bobbic\Documents\Rapid games prototyping\Platformer\HelloGL\HelloGL\HelloGL.cpp(314,14): warning C4156: deletion of an array expression without using the array form of 'delete'; array form substituted
+C:\Users\Bobbic\Documents\Rapid games prototyping\Platformer\HelloGL\HelloGL\HelloGL.cpp(314,14): warning C4154: deletion of an array expression; conversion to pointer supplied
+  MeshLoader.cpp
+  OBJLoader.cpp
+C:\Users\Bobbic\Documents\Rapid games prototyping\Platformer\HelloGL\HelloGL\OBJLoader.cpp(73,1): warning C4552: '+': result of expression not used
+  SceneObjects.cpp
+C:\Users\Bobbic\Documents\Rapid games prototyping\Platformer\HelloGL\HelloGL\SceneObjects.cpp(60,21): warning C4018: '<': signed/unsigned mismatch
+  Texture2D.cpp
+  main.cpp
+  Generating Code...
+  HelloGL.vcxproj -> C:\Users\Bobbic\Documents\Rapid games prototyping\Platformer\HelloGL\Debug\HelloGL.exe

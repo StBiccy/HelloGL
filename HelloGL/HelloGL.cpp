@@ -5,7 +5,6 @@
 
 HelloGL::HelloGL(int argc, char* argv[])
 {
-
 	InitGL(argc, argv);	// initialse opengl methods
 	InitObjects(); // initialse objects
 	InitLighting(); // initialse ligithing
@@ -36,7 +35,7 @@ void HelloGL::InitGL(int argc, char* argv[])
 	glMatrixMode(GL_MODELVIEW);// switches back to the GL_MODELVIEW matrix so we can load our models
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
+	glCullFace(GL_BACK);//back face culling
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
@@ -61,6 +60,7 @@ void HelloGL::InitObjects()
 
 	// initilise bitmap loader
 	BitmapLoader* bitMapImage = new BitmapLoader();
+
 	// create a raw file from bmp file
 	bitMapImage->LoadBitMap((char*)"Textures/Tree.bmp", (char*)"Textures/Tree.raw");
 	bitMapImage->LoadBitMap((char*)"Textures/Floor.bmp", (char*)"Textures/Floor.raw");
@@ -100,7 +100,7 @@ void HelloGL::InitObjects()
 		trees[i] = new SceneObjects(Tree, treeTexture, { ((rand() % 2500) / 10.0f), 0, -(rand() % 2500) / 10.0f }, {0,0,0},{1,1,1}, treeMaterial);
 	}
 
-	stand = new SceneObjects(Stand, standTexture, { 130,0,-130 }, { 0,0,0 }, { 3,3,3 }, defaultMaterial);
+	stand = new SceneObjects(Stand, standTexture, { 170,0,-130 }, { 0,0,0 }, { 3,3,3 }, defaultMaterial);
 	suzanne = new SceneObjects(Suzanne, suzanneTexture, { 0,4,0 }, { 0,0,0 }, { 1,1,1 }, monkeMaterial);
 
 	stand->AddChild(suzanne);
@@ -109,7 +109,7 @@ void HelloGL::InitObjects()
 	skyBox = new SceneObjects(SkyBox, SkyBoxTexture, { 0,0,0 }, { 0,0,0 }, {1,1,1}, defaultMaterial);
 	
 
-
+	// delete the bitMap image loader as it's no longer needed
 	delete bitMapImage;
 }
 
@@ -150,11 +150,11 @@ void HelloGL::Update()
 	glLoadIdentity();// replaces current matix with identity matrix
 	gluPerspective(45, 1, 1, 1000); // sets the correct perspective 
 
-	player->Update();
+	player->Update();//Updated the player
 
-	suzanne->rotation.y += 1;
+	suzanne->rotation.y += 1;//rotate suanne every frame on the y axis
 
-	skyBox->position = player->GetPosition();
+	skyBox->position = player->GetPosition();//make the sky box follow the player's postiton
 
 	//sets the light up every frame
 	glLightfv(GL_LIGHT0, GL_AMBIENT, &(lightData->Ambient.x));
@@ -169,7 +169,7 @@ void HelloGL::Display()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);// clears the colour bit buffer, and depth bit buffer
 	
 
-	// draws the scene objects every fram
+	// draws the scene objects every frame
 	for (int i = 0; i < 60; i++)
 	{
 		trees[i]->Draw();
@@ -178,34 +178,40 @@ void HelloGL::Display()
 	floor->Draw();
 
 	stand->Draw();
+
+
+	//disable lighting for everything after this \/
 	glDisable(GL_LIGHTING);
 
 	glColor3f(1, 1, 1);
 	skyBox->Draw();
-	glEnable(GL_LIGHTING);
-	
+		
 	// Draw string for ui bellow these \/
 	glLoadIdentity();// replaces current matix with identity matrix
-	glOrtho(0, 800, 800, 0, 0, 1.0f);
+	glOrtho(0, 800, 800, 0, 0, 1.0f);//sets up an orthographic projection on the current scene matrix
 
 #pragma region Text stuff
-	Vector2 v = { 10.0f,30.0f };
-	Colour c = { 0.0f,1.0f,0.0f };
-	Vector3 position = player->GetPosition();
-	std::ostringstream stream;
+	
+	Vector2 v = { 10.0f,30.0f };//set position of text
+	Colour c = { 0.0f,1.0f,0.0f };// set colour of text
+	Vector3 position = player->GetPosition();//set up vector 3 from the player's position
+	std::ostringstream stream;//represents the current text stream
 
+	//adds text for X position of player to the stream
 	stream << "X: ";
 	stream << std::fixed;
 	stream << std::setprecision(2);
 	stream << position.x;
 	stream.width(5);
 
+	//adds text for Y position of player to the stream
 	stream << "Y: ";
 	stream << std::fixed;
 	stream << std::setprecision(2);
 	stream << position.y;
 	stream.width(5);
 
+	//adds text for z position of player to the stream
 	stream << "Z: ";
 	stream << std::fixed;
 	stream << std::setprecision(2);
@@ -213,8 +219,9 @@ void HelloGL::Display()
 
 	DrawString(stream.str().c_str(), &v, &c);
 
-	int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
+	int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);//represents the delta time
 
+	//counts the time in frame in Hours, Minuets, Seconds, Micro seconds
 	microSec += (timeSinceStart - oldTime);
 	oldTime = timeSinceStart;
 	if (microSec >= 1000)
@@ -233,25 +240,27 @@ void HelloGL::Display()
 		}
 	}
 
+	//constroucts sting from time data
 	std::string string = "Time in scene: " + std::to_string(hour) + " : " + std::to_string(min) + " : " + std::to_string(sec) + " : " + std::to_string(microSec);
 
-	v = { 10,65 };
+	v = { 10,65 };// sets postion of new text
 
 	DrawString(string.c_str(), &v, &c);
 #pragma endregion
+
+	glEnable(GL_LIGHTING);
+
 	glFlush();// empties all buffers, and preforms all issued commands
 	glutSwapBuffers(); // swaps buffer of current window if double buffered
 }
 
 void HelloGL::DrawString(const char* text, Vector2* position, Colour* colour)
 {
-	glDisable(GL_LIGHTING);
 	glPushMatrix();
 	glColor3f(colour->r, colour->g, colour->b);
 	glRasterPos2f(position->x, position->y);
 	glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24, (unsigned char*)text);
 	glPopMatrix();
-	glEnable(GL_LIGHTING);
 }
 
 void HelloGL::KeyboardUp(unsigned char key, int x, int y)

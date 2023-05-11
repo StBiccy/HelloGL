@@ -13,20 +13,22 @@
 class HelloGL
 {
 private:
-	int oldTime = 0;
-	unsigned short microSec = 0;
-	byte min = 0;
-	byte sec = 0;
-	int hour = 0;
+	int oldTime = 0;//represents time in last frame
+	unsigned short microSec = 0;//represents current micro seconds in scene
+	byte min = 0;//represents current minuets in scene
+	byte sec = 0;//represents curents seconds in scene
+	int hour = 0;//represents current hour in scene
 
-	CharacterController* player; // represnts the player character
+	CharacterController* player; // represents the player character
 
-	SceneObjects* trees[60]; // represents all scene objects
+	//Scene objects for every mesh in the scene
+	SceneObjects* trees[60]; 
 	SceneObjects* floor;
 	SceneObjects* stand;
 	SceneObjects* suzanne;
 	SceneObjects* skyBox;
 
+	//materials for all mateirals in the scene
 	Material* defaultMaterial;
 	Material* treeMaterial;
 	Material* monkeMaterial;

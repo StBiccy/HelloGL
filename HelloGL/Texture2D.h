@@ -7,7 +7,7 @@
 class Texture2D
 {
 private:
-	GLuint ID;
+	GLuint ID;//texture ID
 	int _width, _height; //width and hight of the texture
 
 public:

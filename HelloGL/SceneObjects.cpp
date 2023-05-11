@@ -30,23 +30,27 @@ SceneObjects::SceneObjects(OBJMesh* mesh, Texture2D* texture, Vector3 position, 
 SceneObjects::~SceneObjects(){}
 
 void SceneObjects::Update(){}
+
 void SceneObjects::Draw()
 {
 	glPushMatrix();
+	
+	glTranslatef(position.x, position.y, position.z);//sets position of object in scene
 
-	glTranslatef(position.x, position.y, position.z);
-
+	//set rotation of object in scene
 	glRotatef(rotation.x, 1.0f, 0.0f, 0.0f);
 	glRotatef(rotation.y, 0.0f, 1.0f, 0.0f);
 	glRotatef(rotation.z, 0.0f, 0.0f, 1.0f);
 
-	glScalef(scale.x, scale.y, scale.z);
+	glScalef(scale.x, scale.y, scale.z);//set scale of object in scne
 
+	//set material og object in scene
 	glMaterialfv(GL_FRONT, GL_AMBIENT, &(material->Ambient.x));
 	glMaterialfv(GL_FRONT, GL_SPECULAR, &(material->Specular.x));
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, &(material->Diffuse.x));
 	glMaterialf(GL_FRONT, GL_SHININESS, material->Shininess);
 
+	//draws mesh so long as data isn't empty
 	if (!objMesh->vertices.empty() && !objMesh->normals.empty() && !objMesh->texCoords.empty() && !objMesh->indices.empty())
 	{
 		glBindTexture(GL_TEXTURE_2D, texture->GetID()); // binds texture to mesh
@@ -63,6 +67,7 @@ void SceneObjects::Draw()
 		glBindTexture(GL_TEXTURE_2D, 0); // binds texture to mesh
 	}
 
+	//loop though children calling their draw method, resulting in drawing them in relation to this object
 	for (SceneObjects* child : children)
 	{
 		child->Draw();

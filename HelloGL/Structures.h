@@ -1,13 +1,14 @@
 #pragma once
 #include <vector>
 
+// represents a 2D vector
 struct Vector2
 {
 	float x;
 	float y;
 };
 
-// represents a point in the 3D space
+// represents a 3D vector
 struct Vector3
 {
 	float x;
